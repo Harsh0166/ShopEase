@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Responsive Sign-Up Page</title>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      padding: 1rem;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .signup-box {
+      background: #fff;
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+
+    .signup-box h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #333;
+    }
+
+    .input-group {
+      margin-bottom: 1.2rem;
+    }
+
+    .input-group label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #444;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 0.75rem;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      outline: none;
+    }
+
+    button {
+      width: 100%;
+      background: #ff4b73;
+      color: #fff;
+      border: none;
+      padding: 0.8rem;
+      font-size: 1rem;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #e84362;
+    }
+
+    .divider {
+      text-align: center;
+      margin: 1.5rem 0;
+      position: relative;
+    }
+
+    .divider span {
+      background: #fff;
+      padding: 0 10px;
+      color: #888;
+      font-size: 0.9rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .divider::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: #ccc;
+      z-index: 1;
+    }
+
+    .login-link {
+      text-align: center;
+      font-size: 0.9rem;
+      margin-top: 1rem;
+    }
+
+    .login-link a {
+      color: #ff4b73;
+      text-decoration: none;
+    }
+
+    .login-link a:hover {
+      text-decoration: underline;
+    }
+
+    .g_id_signin {
+      display: flex;
+      justify-content: center;
+    }
+
+    @media (max-width: 480px) {
+      .signup-box {
+        padding: 1.5rem;
+      }
+
+      button {
+        font-size: 0.95rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="signup-box">
+      <h2>Create Your Account 🚀</h2>
+
+      <div id="g_id_onload"
+           data-client_id="YOUR_GOOGLE_CLIENT_ID"
+           data-callback="handleCredentialResponse"
+           data-auto_prompt="false">
+      </div>
+
+      <div class="g_id_signin"
+           data-type="standard"
+           data-shape="pill"
+           data-theme="filled_black"
+           data-text="sign_up_with"
+           data-size="large"
+           data-logo_alignment="center">
+      </div>
+
+      <div class="divider"><span>or sign up with email</span></div>
+
+      <form action="../../server/signup.php" method="POST">
+        <div class="input-group">
+          <label>Full Name</label>
+          <input type="text" placeholder="Enter your name" required  name="name"/>
+        </div>
+
+        <div class="input-group">
+          <label>Email</label>
+          <input type="email" placeholder="Enter your email" required name="email"/>
+        </div>
+
+        <div class="input-group">
+          <label>Password</label>
+          <input type="password" placeholder="Create a password" required name="password"/>
+        </div>
+
+        <button type="submit">Sign Up</button>
+        <p class="login-link">Already have an account? <a href="../../index.html">Login here</a></p>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function handleCredentialResponse(response) {
+      console.log("Google JWT Token:", response.credential);
+      // Send the token to your backend for verification
+    }
+  </script>
+</body>
+</html>
