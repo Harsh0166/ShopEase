@@ -11,11 +11,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $count = mysqli_num_rows($result);
 
     if($count == 1){
-        $sql_user = "SELECT `username` FROM `user_registration` WHERE `email` = '$email'";
+        $sql_user = "SELECT * FROM `user_registration` WHERE `email` = '$email'";
         $result_user =mysqli_query($conn,$sql_user);
         $row = $result_user->fetch_assoc();
 
         $_SESSION['username'] = $row['username'];
+        $_SESSION['email'] = $row['email'];
 
         header("Location: homepage.php");
 

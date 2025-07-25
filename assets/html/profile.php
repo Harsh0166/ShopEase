@@ -1,7 +1,7 @@
 <?php
 include_once("connection.php");
   $username = $_SESSION['username'];
-  
+  $email = $_SESSION['email'];
 ?>
 
 <!DOCTYPE html>
@@ -11,6 +11,7 @@ include_once("connection.php");
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Profile - ShopEase</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="../css/style.css">
   <style>
     * {
       box-sizing: border-box;
@@ -123,7 +124,6 @@ include_once("connection.php");
       display: block;
     }
 
-    /* Profile Page Styling */
     .profile-container {
       display: flex;
       justify-content: center;
@@ -173,6 +173,49 @@ include_once("connection.php");
       cursor: pointer;
     }
 
+    .popup-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.4);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .popup-box {
+      background: white;
+      padding: 20px;
+      width: 300px;
+      border-radius: 8px;
+      position: relative;
+    }
+
+    .popup-box input[type="email"],input[type="text"],input[type="textarea"] {
+      width: 100%;
+      padding: 8px;
+      margin: 12px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .popup-actions {
+      text-align: right;
+    }
+
+    .popup-actions button {
+      margin-left: 10px;
+      padding: 6px 12px;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 14px;
+      font-size: 20px;
+      cursor: pointer;
+      color: #888;
+    }
     /* Mobile view */
     @media (max-width: 768px) {
       .top-bar {
@@ -245,17 +288,34 @@ include_once("connection.php");
     <div class="profile-card">
       <img src="https://picsum.photos/120?random=1" alt="Profile Picture">
 
-      <?php echo '<h2>'.$username.'</h2>'?>
-
-      <p>Email: johndoe@example.com</p>
-      <p>Phone: +1 123 456 7890</p>
+      <?php echo '<h2>'.$username.'</h2>';
+            echo '<p>Email : '.$email.'</p>';
+      ?>
       <p>Address: 1234 Elm Street, Springfield, IL</p>
       <button class="logout-btn"><a href="order_history.html">Order History</a></button>
-      <button class="edit-btn">Edit Profile</button>
+      <button class="edit-btn" id="editbtn">Edit Profile</button>
       <button class="logout-btn">Logout</button>
 
     </div>
   </section>
+
+
+  <div id="popup" class="popup-overlay">
+  <div class="popup-box">
+    <span class="close-btn" id="closePopup">&times;</span>
+    <h3>Edit Profile</h3>
+    <form id="emailForm" action="" method="GET">
+      <input type="text" id="email" name="username" placeholder="username" >
+      <input type="email" id="email" name="email" placeholder="email" >
+      <input type="textarea" id="email" name="address" placeholder="address" >
+
+      <div class="popup-actions">
+        <button type="submit">Update</button>
+        <button type="button" id="cancelBtn">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
 
   <footer>
     &copy; 2025 ShopEase. All rights reserved.
@@ -266,6 +326,25 @@ include_once("connection.php");
       document.getElementById('sidebar').classList.toggle('open');
       document.getElementById('overlay').classList.toggle('active');
     }
+
+  var popup = document.getElementById('popup');
+  var editbtn = document.getElementById('editbtn');
+  var closeBtn = document.getElementById('closePopup');
+  var cancelBtn = document.getElementById('cancelBtn');
+
+
+  editbtn.onclick = function(){
+    popup.style.display = 'flex';
+    document.getElementById('email').focus();
+  }
+
+  closeBtn.onclick=function(){
+    popup.style.display = 'none';
+  }
+
+  cancelBtn.onclick=function(){
+    popup.style.display = 'none';
+  }
   </script>
 
 </body>
