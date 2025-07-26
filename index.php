@@ -138,23 +138,6 @@
     <div class="login-box">
       <h2>Welcome Back</h2>
 
-      <!-- <div id="g_id_onload"
-           data-client_id="YOUR_GOOGLE_CLIENT_ID"
-           data-callback="handleCredentialResponse"
-           data-auto_prompt="false">
-      </div> -->
-
-      <!-- <div class="g_id_signin"
-           data-type="standard"
-           data-shape="pill"
-           data-theme="filled_blue"
-           data-text="continue_with"
-           data-size="large"
-           data-logo_alignment="center">
-      </div> -->
-
-      <!-- <div class="divider"><span>or login with email</span></div> -->
-
       <form action="assets/html/login_checker.php" method="POST">
         <div class="input-group">
           <label>Email</label>
@@ -173,9 +156,7 @@
   </div>
 
   <script>
-    // function handleCredentialResponse(response) {
-    //   console.log("Google JWT Token:", response.credential);
-    // }
+
   </script>
 </body>
 </html>

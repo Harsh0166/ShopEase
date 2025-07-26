@@ -268,7 +268,7 @@ include_once("connection.php");
       <div class="logo"><i class="fas fa-store"></i> ShopEase</div>
       <div class="search-bar"><input type="text" placeholder="Search products..."></div>
       <nav>
-        <a href="homepage.html"><i class="fas fa-home"></i> Home</a>
+        <a href="homepage.php"><i class="fas fa-home"></i> Home</a>
     <a href="cart.html"><i class="fas fa-cart-shopping"></i> Cart</a>
     <a href="profile.html"><i class="fas fa-user"></i> Profile</a>
       </nav>
@@ -277,7 +277,7 @@ include_once("connection.php");
 
   <!-- Sidebar -->
   <div class="sidebar" id="sidebar">
-    <a href="homepage.html"><i class="fas fa-home"></i> Home</a>
+    <a href="homepage.php"><i class="fas fa-home"></i> Home</a>
     <a href="cart.html"><i class="fas fa-cart-shopping"></i> Cart</a>
     <a href="profile.html"><i class="fas fa-user"></i> Profile</a>
   </div>

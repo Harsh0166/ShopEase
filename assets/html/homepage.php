@@ -187,11 +187,13 @@
     }
 
     .product-row {
-      display: flex;
-      overflow-x: auto;
-      gap: 1rem;
-      padding-bottom: 1rem;
-    }
+     display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 1rem;
+    padding-bottom: 1rem;
+    scroll-behavior: smooth;
+      }
 
     .product-card {
       min-width: 160px;
@@ -200,6 +202,7 @@
       border-radius: 8px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
       text-align: center;
+        flex-shrink: 0;
     }
 
     .product-card img {
@@ -226,6 +229,14 @@
       padding: 0.5rem 1rem;
       border-radius: 5px;
       cursor: pointer;
+    }
+
+    #categorySections{
+      width: 100%;
+      height: 60vh;
+      overflow-y: auto;
+      padding: 1rem;
+      box-sizing: border-box;
     }
 
     footer {
@@ -262,7 +273,7 @@
       <input type="text" placeholder="Search products...">
     </div>
     <nav>
-      <a href="homepage.html"><i class="fas fa-home"></i> Home</a>
+      <a href="homepage.php"><i class="fas fa-home"></i> Home</a>
       <a href="cart.html"><i class="fas fa-cart-shopping"></i> Cart</a>
       <a href="profile.php"><i class="fas fa-user"></i> Profile</a>
     </nav>
@@ -281,7 +292,7 @@
 
   <!-- Sidebar Menu -->
   <div class="sidebar" id="sidebar">
-    <a href="homepage.html"><i class="fas fa-home"></i> Home</a>
+    <a href="homepage.php"><i class="fas fa-home"></i> Home</a>
     <a href="cart.html"><i class="fas fa-cart-shopping"></i> Cart</a>
     <a href="profile.php"><i class="fas fa-user"></i> Profile</a>
   </div>
@@ -293,7 +304,175 @@
     <button>Explore Now</button>
   </section>
 
-  <div id="categorySections"></div>
+  <div id="categorySections">
+  <h3>categories</h3><br>
+  <div class="product-row">
+    <div class="product-card">
+      <img src="S.jpg" alt="image not found">
+      <h4>product1</h4>
+      <p>product1</p>
+      <button>Add to Cart</button>
+    </div>
+    <div class="product-card">
+      <img src="sp.png" alt="image not found">
+      <h4>product2</h4>
+      <p>product2</p>
+      <button>Add to Cart</button>
+    </div>
+    <div class="product-card">
+      <img src="" alt="image not found">
+      <h4>product3</h4>
+      <p>product3</p>
+      <button>Add to Cart</button>
+    </div>
+    <div class="product-card">
+      <img src="" alt="image not found">
+      <h4>product4</h4>
+      <p>product4</p>
+      <button>Add to Cart</button>
+    </div>
+    <div class="product-card">
+      <img src="" alt="image not found">
+      <h4>product4</h4>
+      <p>product4</p>
+      <button>Add to Cart</button>
+    </div>
+    <div class="product-card">
+      <img src="" alt="image not found">
+      <h4>product4</h4>
+      <p>product4</p>
+      <button>Add to Cart</button>
+    </div>
+
+    <div class="product-card">
+      <img src="" alt="image not found">
+      <h4>product4</h4>
+      <p>product4</p>
+      <button>Add to Cart</button>
+    </div>
+    <div class="product-card">
+      <img src="" alt="image not found">
+      <h4>product4</h4>
+      <p>product4</p>
+      <button>Add to Cart</button>
+    </div>
+    <div class="product-card">
+      <img src="" alt="image not found">
+      <h4>product4</h4>
+      <p>product4</p>
+      <button>Add to Cart</button>
+    </div>
+    <div class="product-card">
+      <img src="" alt="image not found">
+      <h4>product4</h4>
+      <p>product4</p>
+      <button>Add to Cart</button>
+    </div>
+    <div class="product-card">
+      <img src="" alt="image not found">
+      <h4>product4</h4>
+      <p>product4</p>
+      <button>Add to Cart</button>
+    </div>
+    <div class="product-card">
+      <img src="" alt="image not found">
+      <h4>product4</h4>
+      <p>product4</p>
+      <button>Add to Cart</button>
+    </div>
+    
+    <div class="product-card">
+      <img src="" alt="image not found">
+      <h4>product5</h4>
+      <p>product5</p>
+      <button>Add to Cart</button>
+    </div>
+  </div>
+</div> <div id="categorySections">
+  <h3>categories</h3><br>
+  <div class="product-row">
+    <div class="product-card">
+      <img src="" alt="image not found">
+      <h4>product1</h4>
+      <p>product1</p>
+      <button>Add to Cart</button>
+    </div>
+    <div class="product-card">
+      <img src="" alt="image not found">
+      <h4>product2</h4>
+      <p>product2</p>
+      <button>Add to Cart</button>
+    </div>
+    <div class="product-card">
+      <img src="" alt="image not found">
+      <h4>product3</h4>
+      <p>product3</p>
+      <button>Add to Cart</button>
+    </div>
+    <div class="product-card">
+      <img src="" alt="image not found">
+      <h4>product4</h4>
+      <p>product4</p>
+      <button>Add to Cart</button>
+    </div>
+    <div class="product-card">
+      <img src="" alt="image not found">
+      <h4>product4</h4>
+      <p>product4</p>
+      <button>Add to Cart</button>
+    </div>
+    <div class="product-card">
+      <img src="" alt="image not found">
+      <h4>product4</h4>
+      <p>product4</p>
+      <button>Add to Cart</button>
+    </div>
+
+    <div class="product-card">
+      <img src="" alt="image not found">
+      <h4>product4</h4>
+      <p>product4</p>
+      <button>Add to Cart</button>
+    </div>
+    <div class="product-card">
+      <img src="" alt="image not found">
+      <h4>product4</h4>
+      <p>product4</p>
+      <button>Add to Cart</button>
+    </div>
+    <div class="product-card">
+      <img src="" alt="image not found">
+      <h4>product4</h4>
+      <p>product4</p>
+      <button>Add to Cart</button>
+    </div>
+    <div class="product-card">
+      <img src="" alt="image not found">
+      <h4>product4</h4>
+      <p>product4</p>
+      <button>Add to Cart</button>
+    </div>
+    <div class="product-card">
+      <img src="" alt="image not found">
+      <h4>product4</h4>
+      <p>product4</p>
+      <button>Add to Cart</button>
+    </div>
+    <div class="product-card">
+      <img src="" alt="image not found">
+      <h4>product4</h4>
+      <p>product4</p>
+      <button>Add to Cart</button>
+    </div>
+    
+    <div class="product-card">
+      <img src="" alt="image not found">
+      <h4>product5</h4>
+      <p>product5</p>
+      <button>Add to Cart</button>
+    </div>
+  </div>
+</div>
 
   <footer>
     &copy; 2025 ShopEase. All rights reserved.
@@ -305,36 +484,36 @@
       document.getElementById('overlay').classList.toggle('active');
     }
 
-    const categories = ['Electronics', 'Fashion', 'Accessories'];
-    const container = document.getElementById('categorySections');
+    // const categories = ['Electronics', 'Fashion', 'Accessories'];
+    // const container = document.getElementById('categorySections');
 
-    const categoryMap = {
-      'Electronics': [],
-      'Fashion': [],
-      'Accessories': []
-    };
+    // const categoryMap = {
+    //   'Electronics': [],
+    //   'Fashion': [],
+    //   'Accessories': []
+    // };
 
-    for (let i = 1; i <= 50; i++) {
-      const cat = categories[i % 3];
-      categoryMap[cat].push({
-        name: `Product ${i}`,
-        price: `$${(Math.random() * 100 + 10).toFixed(2)}`,
-        image: `https://picsum.photos/200?random=${i}`
-      });
-    }
+    // for (let i = 1; i <= 50; i++) {
+    //   const cat = categories[i % 3];
+    //   categoryMap[cat].push({
+    //     name: `Product ${i}`,
+    //     price: `$${(Math.random() * 100 + 10).toFixed(2)}`,
+    //     image: `https://picsum.photos/200?random=${i}`
+    //   });
+    // }
 
-    categories.forEach(cat => {
-      const section = document.createElement('div');
-      section.className = 'category-section';
-      section.innerHTML = `<h3>${cat}</h3><div class="product-row">${categoryMap[cat].map(prod => `
-        <div class="product-card">
-          <img src="${prod.image}" alt="${prod.name}">
-          <h4>${prod.name}</h4>
-          <p>${prod.price}</p>
-          <button>Add to Cart</button>
-        </div>`).join('')}</div>`;
-      container.appendChild(section);
-    });
+    // categories.forEach(cat => {
+    //   const section = document.createElement('div');
+    //   section.className = 'category-section';
+    //   section.innerHTML = `<h3>${cat}</h3><div class="product-row">${categoryMap[cat].map(prod => `
+    //     <div class="product-card">
+    //       <img src="${prod.image}" alt="${prod.name}">
+    //       <h4>${prod.name}</h4>
+    //       <p>${prod.price}</p>
+    //       <button>Add to Cart</button>
+    //     </div>`).join('')}</div>`;
+    //   container.appendChild(section);
+    // });
   </script>
 
 </body>
