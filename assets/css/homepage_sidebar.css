@@ -1,0 +1,43 @@
+.sidebar {
+      position: fixed;
+      top: 0;
+      left: -100%;
+      height: 100vh;
+      width: 250px;
+      background-color: #222;
+      color: white;
+      padding: 2rem 1rem;
+      transition: 0.3s ease;
+      z-index: 999;
+    }
+
+    .sidebar.open {
+      left: 0;
+    }
+
+    .sidebar a {
+      display: block;
+      margin-bottom: 1.5rem;
+      color: white;
+      text-decoration: none;
+      font-size: 1.2rem;
+    }
+
+    .sidebar a i {
+      margin-right: 8px;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.5);
+      display: none;
+      z-index: 998;
+    }
+
+    .overlay.active {
+      display: block;
+    }

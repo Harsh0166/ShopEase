@@ -1,3 +1,18 @@
+<?php
+include_once("connection.php");
+
+// $load_product_sql = "SELECT * FROM `product_detail`";
+// $load_product_result = mysqli_query($conn,$load_product_sql);
+// while($row = $load_product_result->fetch_assoc()){
+//   $sno = $row['s. no.'];
+//   $product_name = $row['product_name'];
+//   $price = $row['price'];
+// }
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,6 +20,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ShopEase - Home</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="../css/homepage_sidebar.css">
+  <link rel="stylesheet" href="../css/navbar.css">
   <style>
     * {
       box-sizing: border-box;
@@ -17,140 +34,10 @@
       background-color: #f5f5f5;
       overflow-x: hidden;
     }
-
-    /* Desktop Navbar */
-    .pc-navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background-color: #111;
-      color: white;
-      padding: 0.5rem 1rem;
-    }
-
-    .pc-navbar .logo {
-      font-size: 1.5rem;
-      display: flex;
-      align-items: center;
-    }
-
-    .pc-navbar .logo i {
-      margin-right: 0.5rem;
-    }
-
-    .pc-navbar .search-bar {
-      flex-grow: 1;
-      margin: 0 1rem;
-    }
-
-    .pc-navbar .search-bar input {
-      width: 100%;
-      padding: 0.5rem;
-      border-radius: 4px;
-      border: none;
-    }
-
-    .pc-navbar nav {
-      display: flex;
-      gap: 1rem;
-    }
-
-    .pc-navbar nav a {
-      color: white;
+    a{
       text-decoration: none;
-      font-size: 1rem;
+      color: black;
     }
-
-    .pc-navbar nav a i {
-      margin-right: 4px;
-    }
-
-    /* Mobile Navbar */
-    .mobile-navbar {
-      display: none;
-      background-color: #111;
-      color: white;
-      flex-direction: column;
-    }
-
-    .mobile-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.5rem 1rem;
-    }
-
-    .mobile-top .menu-toggle {
-      font-size: 1.8rem;
-      cursor: pointer;
-    }
-
-    .mobile-top .logo {
-      font-size: 1.5rem;
-      display: flex;
-      align-items: center;
-    }
-
-    .mobile-top .logo i {
-      margin-right: 0.5rem;
-    }
-
-    .mobile-search {
-      padding: 0.5rem 1rem;
-    }
-
-    .mobile-search input {
-      width: 100%;
-      padding: 0.5rem;
-      border-radius: 4px;
-      border: none;
-    }
-
-    /* Sidebar */
-    .sidebar {
-      position: fixed;
-      top: 0;
-      left: -100%;
-      height: 100vh;
-      width: 250px;
-      background-color: #222;
-      color: white;
-      padding: 2rem 1rem;
-      transition: 0.3s ease;
-      z-index: 999;
-    }
-
-    .sidebar.open {
-      left: 0;
-    }
-
-    .sidebar a {
-      display: block;
-      margin-bottom: 1.5rem;
-      color: white;
-      text-decoration: none;
-      font-size: 1.2rem;
-    }
-
-    .sidebar a i {
-      margin-right: 8px;
-    }
-
-    .overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0,0,0,0.5);
-      display: none;
-      z-index: 998;
-    }
-
-    .overlay.active {
-      display: block;
-    }
-
     .hero {
       background: linear-gradient(135deg, #ff9a9e, #fad0c4);
       color: #333;
@@ -305,172 +192,52 @@
   </section>
 
   <div id="categorySections">
-  <h3>categories</h3><br>
+  <h3>Electronics</h3><br>
   <div class="product-row">
-    <div class="product-card">
-      <img src="S.jpg" alt="image not found">
-      <h4>product1</h4>
-      <p>product1</p>
-      <button>Add to Cart</button>
-    </div>
-    <div class="product-card">
-      <img src="sp.png" alt="image not found">
-      <h4>product2</h4>
-      <p>product2</p>
-      <button>Add to Cart</button>
-    </div>
-    <div class="product-card">
-      <img src="" alt="image not found">
-      <h4>product3</h4>
-      <p>product3</p>
-      <button>Add to Cart</button>
-    </div>
-    <div class="product-card">
-      <img src="" alt="image not found">
-      <h4>product4</h4>
-      <p>product4</p>
-      <button>Add to Cart</button>
-    </div>
-    <div class="product-card">
-      <img src="" alt="image not found">
-      <h4>product4</h4>
-      <p>product4</p>
-      <button>Add to Cart</button>
-    </div>
-    <div class="product-card">
-      <img src="" alt="image not found">
-      <h4>product4</h4>
-      <p>product4</p>
-      <button>Add to Cart</button>
-    </div>
+    <?php
+      $load_product_sql = "SELECT * FROM `product_detail` WHERE `category` = 'electronics'";
+      $load_product_result = mysqli_query($conn,$load_product_sql);
+      while($row = $load_product_result->fetch_assoc()){
+        $sno = $row['s. no.'];
+        $product_name = $row['product_name'];
+        $price = $row['price'];
 
-    <div class="product-card">
-      <img src="" alt="image not found">
-      <h4>product4</h4>
-      <p>product4</p>
-      <button>Add to Cart</button>
-    </div>
-    <div class="product-card">
-      <img src="" alt="image not found">
-      <h4>product4</h4>
-      <p>product4</p>
-      <button>Add to Cart</button>
-    </div>
-    <div class="product-card">
-      <img src="" alt="image not found">
-      <h4>product4</h4>
-      <p>product4</p>
-      <button>Add to Cart</button>
-    </div>
-    <div class="product-card">
-      <img src="" alt="image not found">
-      <h4>product4</h4>
-      <p>product4</p>
-      <button>Add to Cart</button>
-    </div>
-    <div class="product-card">
-      <img src="" alt="image not found">
-      <h4>product4</h4>
-      <p>product4</p>
-      <button>Add to Cart</button>
-    </div>
-    <div class="product-card">
-      <img src="" alt="image not found">
-      <h4>product4</h4>
-      <p>product4</p>
-      <button>Add to Cart</button>
-    </div>
-    
-    <div class="product-card">
-      <img src="" alt="image not found">
-      <h4>product5</h4>
-      <p>product5</p>
-      <button>Add to Cart</button>
-    </div>
+        echo '<div class="product-card">
+          <a href="product_detail.php?sno='.$sno.'">
+          <img src="S.jpg" alt="image not found">
+          <h4>'.$product_name.'</h4>
+          <p> Rs '.$price.'</p>
+          <button>Add to Cart</button>
+          </a>
+          </div>';
+      };
+
+    ?>
   </div>
-</div> <div id="categorySections">
-  <h3>categories</h3><br>
-  <div class="product-row">
-    <div class="product-card">
-      <img src="" alt="image not found">
-      <h4>product1</h4>
-      <p>product1</p>
-      <button>Add to Cart</button>
-    </div>
-    <div class="product-card">
-      <img src="" alt="image not found">
-      <h4>product2</h4>
-      <p>product2</p>
-      <button>Add to Cart</button>
-    </div>
-    <div class="product-card">
-      <img src="" alt="image not found">
-      <h4>product3</h4>
-      <p>product3</p>
-      <button>Add to Cart</button>
-    </div>
-    <div class="product-card">
-      <img src="" alt="image not found">
-      <h4>product4</h4>
-      <p>product4</p>
-      <button>Add to Cart</button>
-    </div>
-    <div class="product-card">
-      <img src="" alt="image not found">
-      <h4>product4</h4>
-      <p>product4</p>
-      <button>Add to Cart</button>
-    </div>
-    <div class="product-card">
-      <img src="" alt="image not found">
-      <h4>product4</h4>
-      <p>product4</p>
-      <button>Add to Cart</button>
-    </div>
+</div>
 
-    <div class="product-card">
-      <img src="" alt="image not found">
-      <h4>product4</h4>
-      <p>product4</p>
-      <button>Add to Cart</button>
-    </div>
-    <div class="product-card">
-      <img src="" alt="image not found">
-      <h4>product4</h4>
-      <p>product4</p>
-      <button>Add to Cart</button>
-    </div>
-    <div class="product-card">
-      <img src="" alt="image not found">
-      <h4>product4</h4>
-      <p>product4</p>
-      <button>Add to Cart</button>
-    </div>
-    <div class="product-card">
-      <img src="" alt="image not found">
-      <h4>product4</h4>
-      <p>product4</p>
-      <button>Add to Cart</button>
-    </div>
-    <div class="product-card">
-      <img src="" alt="image not found">
-      <h4>product4</h4>
-      <p>product4</p>
-      <button>Add to Cart</button>
-    </div>
-    <div class="product-card">
-      <img src="" alt="image not found">
-      <h4>product4</h4>
-      <p>product4</p>
-      <button>Add to Cart</button>
-    </div>
-    
-    <div class="product-card">
-      <img src="" alt="image not found">
-      <h4>product5</h4>
-      <p>product5</p>
-      <button>Add to Cart</button>
-    </div>
+<div id="categorySections">
+  <h3>Toys</h3><br>
+  <div class="product-row">
+       <?php
+      $load_product_sql = "SELECT * FROM `product_detail` WHERE `category` = 'other'";
+      $load_product_result = mysqli_query($conn,$load_product_sql);
+      while($row = $load_product_result->fetch_assoc()){
+        $sno = $row['s. no.'];
+        $product_name = $row['product_name'];
+        $price = $row['price'];
+
+        echo '<div class="product-card">
+          <a href="product_detail.php?sno='.$sno.'">
+          <img src="S.jpg" alt="image not found">
+          <h4>'.$product_name.'</h4>
+          <p> Rs '.$price.'</p>
+          <button>Add to Cart</button>
+          </a>
+          </div>';
+      };
+
+    ?>
   </div>
 </div>
 

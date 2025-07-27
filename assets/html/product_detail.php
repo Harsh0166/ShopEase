@@ -1,7 +1,24 @@
 <?php
-  include_once("conncetion.php");
+  include_once("connection.php");
 
-  
+  if(isset($_GET['sno'])){
+    $sno = $_GET['sno'];
+    $product_detail_sql ="SELECT * FROM `product_detail` WHERE `s. no.` = $sno";
+    $product_detail_result = mysqli_query($conn,$product_detail_sql);
+    $row = $product_detail_result->fetch_assoc();
+    $product_name = $row['product_name'];
+    $price = $row['price'];
+    $description = $row['description'];
+    $image = $row['image'];
+  }
+
+   if(isset($_POST['review'])){
+    $username = $_SESSION['username'];
+    $review = $_POST['review'];
+
+    $review_sql ="INSERT INTO `review`(`sno`, `name`, `stars`, `description`) VALUES (Null ,'$username','','$review')";
+    mysqli_query($conn,$review_sql);
+   }
 ?>
 
 <!DOCTYPE html>
@@ -11,6 +28,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Product Detail - ShopEase</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="../css/homepage_sidebar.css">
+  <link rel="stylesheet" href="../css/navbar.css">
   <style>
     * {
       box-sizing: border-box;
@@ -24,172 +43,59 @@
       overflow-x: hidden;
     }
 
-    /* Header & Nav */
-    header {
-      background-color: #111;
-      color: white;
-      padding: 0.5rem 1rem;
-    }
+.product-detail {
+ display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  padding: 20px;
+  flex-wrap: wrap;
+}
 
-    .top-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-    }
 
-    .logo {
-      font-size: 1.5rem;
-      display: flex;
-      align-items: center;
-    }
+.product-image img {
+  width: 700px;
+  height: auto;
+  border-radius: 10px;
+}
 
-    .logo i {
-      margin-right: 0.5rem;
-    }
+.product-info {
+    max-width: 600px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
 
-    .search-bar {
-      width: 100%;
-      margin: 0.5rem 0;
-    }
+.product-info h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
 
-    .search-bar input {
-      width: 100%;
-      padding: 0.5rem;
-      border-radius: 4px;
-      border: none;
-    }
+.rating {
+  color: gold;
+  margin-bottom: 0.5rem;
+}
 
-    nav {
-      display: flex;
-      gap: 1rem;
-      justify-content: flex-end;
-    }
+.price {
+  font-size: 1.5rem;
+  color: #e74c3c;
+  margin-bottom: 1rem;
+}
 
-    nav a {
-      color: white;
-      text-decoration: none;
-      font-size: 1rem;
-    }
+.description {
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
 
-    nav a i {
-      margin-right: 4px;
-    }
-
-    .menu-toggle {
-      font-size: 2rem;
-      cursor: pointer;
-      color: white;
-      display: none;
-    }
-
-    .sidebar {
-      position: fixed;
-      top: 0;
-      left: -100%;
-      height: 100vh;
-      width: 250px;
-      background-color: #222;
-      color: white;
-      padding: 2rem 1rem;
-      transition: 0.3s ease;
-      z-index: 999;
-    }
-
-    .sidebar.open {
-      left: 0;
-    }
-
-    .sidebar a {
-      display: block;
-      margin-bottom: 1.5rem;
-      color: white;
-      text-decoration: none;
-      font-size: 1.2rem;
-    }
-
-    .overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0,0,0,0.5);
-      display: none;
-      z-index: 998;
-    }
-
-    .overlay.active {
-      display: block;
-    }
-
-    /* Main Section */
-    .product-detail {
-      display: flex;
-      flex-direction: column;
-      padding: 2rem;
-      gap: 1.5rem;
-      background: white;
-      margin: 2rem;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-
-    .product-detail img {
-      max-width: 300px;
-      margin: 0 auto;
-    }
-
-    .product-info {
-      text-align: center;
-    }
-
-    .product-info h2 {
-      font-size: 2rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .rating {
-      color: gold;
-      margin-bottom: 0.5rem;
-    }
-
-    .price {
-      font-size: 1.5rem;
-      color: #e74c3c;
-      margin-bottom: 1rem;
-    }
-
-    .description {
-      margin-bottom: 1.5rem;
-      line-height: 1.6;
-    }
-
-    .specs-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 1rem 0;
-    }
-
-    .specs-table th, .specs-table td {
-      padding: 0.75rem;
-      border: 1px solid #ddd;
-      text-align: left;
-    }
-
-    .specs-table th {
-      background-color: #f0f0f0;
-    }
-
-    .add-to-cart {
-      padding: 0.75rem 1.5rem;
-      font-size: 1rem;
-      background-color: #111;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
+.add-to-cart {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  background-color: #111;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
 
     footer {
       background-color: #111;
@@ -200,43 +106,28 @@
 
     /* Responsive */
     @media (max-width: 768px) {
-      .top-bar {
-        flex-direction: row;
-        justify-content: space-between;
-      }
-
-      .search-bar {
-        order: 2;
-        width: 100%;
-        margin: 0.5rem 0;
-      }
-
-      nav {
+       .pc-navbar {
         display: none;
       }
 
-      .menu-toggle {
-        display: block;
+      .mobile-navbar {
+        display: flex;
       }
+      .img_&_detail {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .product-info {
+    text-align: center;
+    margin-top: 1rem;
+  }
     }
 
     @media (min-width: 769px) {
-      .top-bar {
-        flex-direction: row;
-      }
-
-      .search-bar {
-        width: 50%;
-      }
-
-      nav {
-        display: flex;
-      }
-
-      .menu-toggle {
+         .mobile-navbar {
         display: none;
       }
-
       .product-detail {
         flex-direction: row;
         align-items: flex-start;
@@ -256,97 +147,108 @@
 </head>
 <body>
 
-  <header>
-    <div class="top-bar">
+ <!-- Desktop Navbar -->
+  <div class="pc-navbar">
+    <div class="logo"><i class="fas fa-store"></i> ShopEase</div>
+    <div class="search-bar">
+      <input type="text" placeholder="Search products...">
+    </div>
+    <nav>
+      <a href="homepage.php"><i class="fas fa-home"></i> Home</a>
+      <a href="cart.html"><i class="fas fa-cart-shopping"></i> Cart</a>
+      <a href="profile.php"><i class="fas fa-user"></i> Profile</a>
+    </nav>
+  </div>
+
+  <!-- Mobile Navbar -->
+  <div class="mobile-navbar">
+    <div class="mobile-top">
       <div class="menu-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
       <div class="logo"><i class="fas fa-store"></i> ShopEase</div>
-      <div class="search-bar"><input type="text" placeholder="Search products..."></div>
-      <nav>
-        <a href="homepage.php"><i class="fas fa-home"></i> Home</a>
-    <a href="cart.html"><i class="fas fa-cart-shopping"></i> Cart</a>
-    <a href="profile.html"><i class="fas fa-user"></i> Profile</a>
-      </nav>
     </div>
-  </header>
+    <div class="mobile-search">
+      <input type="text" placeholder="Search products...">
+    </div>
+  </div>
 
-  <!-- Sidebar -->
+  <!-- Sidebar Menu -->
   <div class="sidebar" id="sidebar">
     <a href="homepage.php"><i class="fas fa-home"></i> Home</a>
     <a href="cart.html"><i class="fas fa-cart-shopping"></i> Cart</a>
-    <a href="profile.html"><i class="fas fa-user"></i> Profile</a>
+    <a href="profile.php"><i class="fas fa-user"></i> Profile</a>
   </div>
   <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
-  <section class="product-detail">
-    <img src="https://picsum.photos/300?random=1" alt="Product Image">
+ <section class="product-detail">
+    <?php 
+
+      $load_review_sql = "SELECT * FROM `review`";
+      $load_review_result = mysqli_query($conn,$load_review_sql);
+
+      echo '
+    <div class="product-image">
+      <img src="https://picsum.photos/300?random=1" alt="Product Image" />
+    </div>
     <div class="product-info">
-      <h2>Smartphone X1 Pro</h2>
-      <div class="rating">
-        ★★★★☆ (4.2/5) - 145 Reviews
-      </div>
-      <div class="price">$499.99</div>
-      <p class="description">
-        Experience cutting-edge technology with the Smartphone X1 Pro. With its sleek design, fast processor, and vibrant display, it’s built for everything from gaming to productivity.
-      </p>
+      <h2>'.$product_name .'</h2>
+      <div class="rating">★★★★☆ (4.2/5) - 145 Reviews</div>
+      <div class="price">Rs '.$price.'</div>
+      <p class="description">'.$description.'</p>
       <button class="add-to-cart">Add to Cart</button>
-    </div>
-  </section>
-  
-  <section class="product-detail">
-    
-      <!-- Rating Section -->
+
+   
+      <h3 style="margin: 2rem 0 1rem;">Customer Ratings</h3>
       <div>
-        <h3 style="margin-bottom:1rem;">Customer Ratings</h3>
-        <div>
-          ★★★★★ - 70% <br>
-          ★★★★☆ - 20% <br>
-          ★★★☆☆ - 7% <br>
-          ★★☆☆☆ - 2% <br>
-          ★☆☆☆☆ - 1%
-        </div>
+        ★★★★★ - 70% <br>
+        ★★★★☆ - 20% <br>
+        ★★★☆☆ - 7% <br>
+        ★★☆☆☆ - 2% <br>
+        ★☆☆☆☆ - 1%
       </div>
-     
-      <!-- Review Section -->
-      <!-- Review Section -->
-<div>
-  <h3 style="margin-bottom:1rem;">Customer Reviews</h3>
-  <div style="max-height:250px; overflow-y:auto; padding-right:0.5rem;">
-    <div style="margin-bottom:1rem;">
-      <strong>John D.</strong> <br>
-      ★★★★★ <br>
-      "Amazing phone! Battery life is superb and the camera quality is outstanding."
+
+      <h3 style="margin: 2rem 0 1rem;">Customer Reviews</h3>
+         <button onclick="openReviewForm()" class="add-to-cart" style="margin-top: 1rem;">
+        Write a Review
+      </button> <br>
+      <div style="max-height:250px; overflow-y:auto; padding-right:0.5rem;">
+        <div style="margin-bottom:1rem;">';
+
+         while($row = $load_review_result->fetch_assoc()){
+      $review_name = $row['name'];
+      $review_desc = $row['description'];
+      echo '
+          <strong>'.$review_name.'</strong><br>★★★★★<br>"'.$review_desc.'"<br>'; };
+        '</div>';
+    ?>
+      
+      </div>
+
+</section>
+   
+
+<div id="reviewForm" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.5); z-index:1000;">
+  <div style="background:white; width:90%; max-width:400px; margin:5% auto; padding:2rem; border-radius:8px; position:relative;">
+    <h3 style="margin-bottom: 1rem;">Write Your Review</h3>
+
+    <!-- Star Rating -->
+    <div id="stars" style="font-size:2rem; color:gold; margin-bottom:1rem; text-align: center;">
+      <i class="fa-regular fa-star" onclick="setRating(1)"></i>
+      <i class="fa-regular fa-star" onclick="setRating(2)"></i>
+      <i class="fa-regular fa-star" onclick="setRating(3)"></i>
+      <i class="fa-regular fa-star" onclick="setRating(4)"></i>
+      <i class="fa-regular fa-star" onclick="setRating(5)"></i>
     </div>
-    <div style="margin-bottom:1rem;">
-      <strong>Sarah K.</strong> <br>
-      ★★★★☆ <br>
-      "Love the smooth display and fast charging. Slightly bulky though."
-    </div>
-    <div style="margin-bottom:1rem;">
-      <strong>Mike W.</strong> <br>
-      ★★★★☆ <br>
-      "Performance is great for gaming. Worth the price!"
-    </div>
-    <!-- You can add more reviews here -->
-    <div style="margin-bottom:1rem;">
-      <strong>Emily R.</strong> <br>
-      ★★★★★ <br>
-      "Best phone I've ever used. Display is fantastic!"
-    </div>
-    <div style="margin-bottom:1rem;">
-      <strong>Chris B.</strong> <br>
-      ★★★☆☆ <br>
-      "Average experience. Good camera but heating issue."
+    <form action="" method="POST">
+    <textarea name="review" required id="reviewText" placeholder="Write your review here..." style="width:100%; height:100px; margin-bottom:1rem; padding:0.5rem; border:1px solid #ccc; border-radius:5px;" ></textarea>
+
+    <div style="text-align: right;">
+      <button type="button" onclick="closeReviewForm()" style="background-color: #ccc; color: black; padding: 0.5rem 1rem; margin-right: 0.5rem; border: none; border-radius: 5px;">Cancel</button>
+      <button type="submit" style="background-color: #111; color: white; padding: 0.5rem 1rem; border: none; border-radius: 5px;">Submit</button>
+    </form>
     </div>
   </div>
-  <!-- Write a Review Button -->
-<button onclick="openReviewForm()" style="margin: 1rem 2rem; padding: 0.75rem 1.5rem; background-color: #111; color: white; border: none; border-radius: 5px; cursor: pointer;">
-  Write a Review
-</button>
 </div>
 
-
-
-      </section>
 
 <section class="product-detail">
       <!-- Similar Products Section -->
@@ -391,7 +293,7 @@
       document.getElementById('overlay').classList.toggle('active');
     }
 
-    let selectedRating = 0;
+    // let selectedRating = 0;
 
 function openReviewForm() {
   document.getElementById('reviewForm').style.display = 'block';
@@ -399,70 +301,57 @@ function openReviewForm() {
 
 function closeReviewForm() {
   document.getElementById('reviewForm').style.display = 'none';
-  selectedRating = 0;
-  resetStars();
+  // selectedRating = 0;
+  // resetStars();
 }
 
-function setRating(rating) {
-  selectedRating = rating;
-  const stars = document.querySelectorAll('#stars i');
-  stars.forEach((star, index) => {
-    if (index < rating) {
-      star.classList.remove('fa-regular');
-      star.classList.add('fa-solid');
-    } else {
-      star.classList.add('fa-regular');
-      star.classList.remove('fa-solid');
-    }
-  });
-}
+// function setRating(rating) {
+//   selectedRating = rating;
+//   const stars = document.querySelectorAll('#stars i');
+//   stars.forEach((star, index) => {
+//     if (index < rating) {
+//       star.classList.remove('fa-regular');
+//       star.classList.add('fa-solid');
+//     } else {
+//       star.classList.add('fa-regular');
+//       star.classList.remove('fa-solid');
+//     }
+//   });
+// }
 
-function resetStars() {
-  const stars = document.querySelectorAll('#stars i');
-  stars.forEach(star => {
-    star.classList.add('fa-regular');
-    star.classList.remove('fa-solid');
-  });
-}
+// function resetStars() {
+//   const stars = document.querySelectorAll('#stars i');
+//   stars.forEach(star => {
+//     star.classList.add('fa-regular');
+//     star.classList.remove('fa-solid');
+//   });
+// }
 
-function submitReview() {
-  const reviewText = document.getElementById('reviewText').value;
-  if (selectedRating === 0 || reviewText.trim() === '') {
-    alert('Please give a rating and write a review!');
-    return;
-  }
-  // Here you can save the review in your backend or localStorage
-  alert(`Review Submitted!\nRating: ${selectedRating} Stars\nReview: ${reviewText}`);
-  closeReviewForm();
-}
+// function submitReview() {
+//   const reviewText = document.getElementById('reviewText').value;
+//   if (selectedRating === 0 || reviewText.trim() === '') {
+//     alert('Please give a rating and write a review!');
+//     return;
+//   }
+//   // Here you can save the review in your backend or localStorage
+//   alert(`Review Submitted!\nRating: ${selectedRating} Stars\nReview: ${reviewText}`);
+//   closeReviewForm();
+// }
 
+//  var loc = window.location.href;
+//     loc=loc.split("?")[1].split("=")[2];
+//     if(loc == 1){
+//         alert("Added successfully");
+//     }
+//     else if(loc==2){
+
+//           alert("Not added");
+//     }
+
+//       function toggleMenu() {
+//       document.getElementById('sidebar').classList.toggle('open');
+//     }
 
   </script>
-
-
-<!-- Review Popup Form -->
-<div id="reviewForm" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.5); z-index:1000;">
-  <div style="background:white; width:90%; max-width:400px; margin:5% auto; padding:2rem; border-radius:8px; position:relative;">
-    <h3 style="margin-bottom: 1rem;">Write Your Review</h3>
-
-    <!-- Star Rating -->
-    <div id="stars" style="font-size:2rem; color:gold; margin-bottom:1rem; text-align: center;">
-      <i class="fa-regular fa-star" onclick="setRating(1)"></i>
-      <i class="fa-regular fa-star" onclick="setRating(2)"></i>
-      <i class="fa-regular fa-star" onclick="setRating(3)"></i>
-      <i class="fa-regular fa-star" onclick="setRating(4)"></i>
-      <i class="fa-regular fa-star" onclick="setRating(5)"></i>
-    </div>
-
-    <textarea id="reviewText" placeholder="Write your review here..." style="width:100%; height:100px; margin-bottom:1rem; padding:0.5rem; border:1px solid #ccc; border-radius:5px;"></textarea>
-
-    <div style="text-align: right;">
-      <button onclick="closeReviewForm()" style="background-color: #ccc; color: black; padding: 0.5rem 1rem; margin-right: 0.5rem; border: none; border-radius: 5px;">Cancel</button>
-      <button onclick="submitReview()" style="background-color: #111; color: white; padding: 0.5rem 1rem; border: none; border-radius: 5px;">Submit</button>
-    </div>
-  </div>
-</div>
-
-
 </body>
 </html>
