@@ -15,9 +15,25 @@
    if(isset($_POST['review'])){
     $username = $_SESSION['username'];
     $review = $_POST['review'];
+    $product_id = $sno;
+    $user_id = $_SESSION['user_id'];
+    
+    $load_only_review_sql = "SELECT * FROM `review` WHERE `product_id` = '$product_id' And `user_id`='$user_id'";
+    $load_only_review_result = mysqli_query($conn,$load_only_review_sql);
+    $count = mysqli_num_rows($load_only_review_result);
 
-    $review_sql ="INSERT INTO `review`(`sno`, `name`, `stars`, `description`) VALUES (Null ,'$username','','$review')";
-    mysqli_query($conn,$review_sql);
+    if($count == 0){
+          $review_sql ="INSERT INTO `review`(`sno`, `name`, `stars`, `product_id`, `user_id`, `description`) VALUES (Null,'$username','','$product_id','$user_id','$review')";
+          $review_result = mysqli_query($conn,$review_sql);
+          if($review_result){
+            header("Location: product_detail.php?sno=$sno");
+          }
+    }
+    else{
+      $review_update_sql = "UPDATE `review` SET `stars`='',`description`='$review' WHERE `product_id` = '$product_id' And `user_id`='$user_id'";
+      mysqli_query($conn,$review_update_sql);
+    }
+
    }
 ?>
 
@@ -181,8 +197,8 @@
 
  <section class="product-detail">
     <?php 
-
-      $load_review_sql = "SELECT * FROM `review`";
+      $product_id = $sno;
+      $load_review_sql = "SELECT * FROM `review` WHERE `product_id`= '$product_id'";
       $load_review_result = mysqli_query($conn,$load_review_sql);
 
       echo '
