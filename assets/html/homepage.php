@@ -118,9 +118,19 @@ include_once("connection.php");
       cursor: pointer;
     }
 
+    .product-card .add_cart_btn{
+      background-color: #111;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+    
     #categorySections{
       width: 100%;
-      height: 60vh;
+      height: 50vh;
       overflow-y: auto;
       padding: 1rem;
       box-sizing: border-box;
@@ -161,7 +171,7 @@ include_once("connection.php");
     </div>
     <nav>
       <a href="homepage.php"><i class="fas fa-home"></i> Home</a>
-      <a href="cart.html"><i class="fas fa-cart-shopping"></i> Cart</a>
+      <a href="cart.php"><i class="fas fa-cart-shopping"></i> Cart</a>
       <a href="profile.php"><i class="fas fa-user"></i> Profile</a>
     </nav>
   </div>
@@ -180,7 +190,7 @@ include_once("connection.php");
   <!-- Sidebar Menu -->
   <div class="sidebar" id="sidebar">
     <a href="homepage.php"><i class="fas fa-home"></i> Home</a>
-    <a href="cart.html"><i class="fas fa-cart-shopping"></i> Cart</a>
+    <a href="cart.php"><i class="fas fa-cart-shopping"></i> Cart</a>
     <a href="profile.php"><i class="fas fa-user"></i> Profile</a>
   </div>
   <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
@@ -207,7 +217,7 @@ include_once("connection.php");
           <img src="S.jpg" alt="image not found">
           <h4>'.$product_name.'</h4>
           <p> Rs '.$price.'</p>
-          <button>Add to Cart</button>
+          <a href="add_to_cart.php?product_id='.$sno.'&product_name='.$product_name.'&price='.$price.'&product_image=1" class="add_cart_btn">Add to Cart</a>
           </a>
           </div>';
       };
@@ -232,7 +242,7 @@ include_once("connection.php");
           <img src="S.jpg" alt="image not found">
           <h4>'.$product_name.'</h4>
           <p> Rs '.$price.'</p>
-          <button>Add to Cart</button>
+          <a href="cart.php" class="add_cart_btn">Add to Cart</a>
           </a>
           </div>';
       };

@@ -172,7 +172,7 @@
         </div>
 
         <button type="submit">Sign Up</button>
-        <p class="login-link">Already have an account? <a href="../../index.html">Login here</a></p>
+        <p class="login-link">Already have an account? <a href="../../index.php">Login here</a></p>
       </form>
     </div>
   </div>

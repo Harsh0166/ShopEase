@@ -269,8 +269,8 @@ include_once("connection.php");
       <div class="search-bar"><input type="text" placeholder="Search products..."></div>
       <nav>
         <a href="homepage.php"><i class="fas fa-home"></i> Home</a>
-    <a href="cart.html"><i class="fas fa-cart-shopping"></i> Cart</a>
-    <a href="profile.html"><i class="fas fa-user"></i> Profile</a>
+    <a href="cart.php"><i class="fas fa-cart-shopping"></i> Cart</a>
+    <a href="profile.php"><i class="fas fa-user"></i> Profile</a>
       </nav>
     </div>
   </header>
@@ -278,8 +278,8 @@ include_once("connection.php");
   <!-- Sidebar -->
   <div class="sidebar" id="sidebar">
     <a href="homepage.php"><i class="fas fa-home"></i> Home</a>
-    <a href="cart.html"><i class="fas fa-cart-shopping"></i> Cart</a>
-    <a href="profile.html"><i class="fas fa-user"></i> Profile</a>
+    <a href="cart.php"><i class="fas fa-cart-shopping"></i> Cart</a>
+    <a href="profile.php"><i class="fas fa-user"></i> Profile</a>
   </div>
   <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
@@ -292,7 +292,7 @@ include_once("connection.php");
             echo '<p>Email : '.$email.'</p>';
       ?>
       <p>Address: 1234 Elm Street, Springfield, IL</p>
-      <button class="logout-btn"><a href="order_history.html">Order History</a></button>
+      <button class="logout-btn"><a href="order_history.php">Order History</a></button>
       <button class="edit-btn" id="editbtn">Edit Profile</button>
       <button class="logout-btn">Logout</button>
 

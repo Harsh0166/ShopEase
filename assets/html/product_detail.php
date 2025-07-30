@@ -111,6 +111,8 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  text-align: center;
+  text-decoration: none;
 }
 
     footer {
@@ -171,7 +173,7 @@
     </div>
     <nav>
       <a href="homepage.php"><i class="fas fa-home"></i> Home</a>
-      <a href="cart.html"><i class="fas fa-cart-shopping"></i> Cart</a>
+      <a href="cart.php"><i class="fas fa-cart-shopping"></i> Cart</a>
       <a href="profile.php"><i class="fas fa-user"></i> Profile</a>
     </nav>
   </div>
@@ -190,7 +192,7 @@
   <!-- Sidebar Menu -->
   <div class="sidebar" id="sidebar">
     <a href="homepage.php"><i class="fas fa-home"></i> Home</a>
-    <a href="cart.html"><i class="fas fa-cart-shopping"></i> Cart</a>
+    <a href="cart.php"><i class="fas fa-cart-shopping"></i> Cart</a>
     <a href="profile.php"><i class="fas fa-user"></i> Profile</a>
   </div>
   <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
@@ -210,7 +212,7 @@
       <div class="rating">★★★★☆ (4.2/5) - 145 Reviews</div>
       <div class="price">Rs '.$price.'</div>
       <p class="description">'.$description.'</p>
-      <button class="add-to-cart">Add to Cart</button>
+      <a href="add_to_cart.php?product_id='.$sno.'&product_name='.$product_name.'&price='.$price.'&product_image=1"  class="add-to-cart">Add to Cart</a>
 
    
       <h3 style="margin: 2rem 0 1rem;">Customer Ratings</h3>
