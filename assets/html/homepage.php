@@ -1,15 +1,9 @@
 <?php
 include_once("connection.php");
 
-// $load_product_sql = "SELECT * FROM `product_detail`";
-// $load_product_result = mysqli_query($conn,$load_product_sql);
-// while($row = $load_product_result->fetch_assoc()){
-//   $sno = $row['s. no.'];
-//   $product_name = $row['product_name'];
-//   $price = $row['price'];
-// }
-
-
+if(!isset($_SESSION['username'])){
+  header("Location: ../../index.php");
+}
 ?>
 
 
@@ -130,7 +124,7 @@ include_once("connection.php");
     
     #categorySections{
       width: 100%;
-      height: 50vh;
+      height: 55vh;
       overflow-y: auto;
       padding: 1rem;
       box-sizing: border-box;

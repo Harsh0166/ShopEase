@@ -180,6 +180,11 @@ include_once("connection.php");
       border: none;
       border-radius: 5px;
       cursor: pointer;
+   
+    }
+    a{
+         text-decoration: none;
+         color: #fff;
     }
 
     footer {
@@ -249,7 +254,7 @@ include_once("connection.php");
         $show_ordered_sql = "SELECT * FROM `cart` WHERE `user_id` ='$user_id'";
         $show_ordered_result = mysqli_query($conn,$show_ordered_sql);
         $subtotal =0;
-    $totalprice=0;
+        $totalprice=0;
         while($row = $show_ordered_result->fetch_assoc()){
           $shipping = 0;
         $subtotal += $row['product_price'] *$row['product_quantity'];

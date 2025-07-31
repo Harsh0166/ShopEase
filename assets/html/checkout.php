@@ -1,3 +1,13 @@
+<?php
+  include_once("connection.php");
+
+    $user_id = $_SESSION["user_id"];
+    $show_ordered_sql = "SELECT * FROM `cart` WHERE `user_id` ='$user_id'";
+    $show_ordered_result = mysqli_query($conn,$show_ordered_sql);
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -99,35 +109,40 @@
 
 <div class="checkout-container">
   <h2>Shipping Details</h2>
-  <form class="form">
+  <form class="form" action="checkout_checker.php" method="POST">
     <div class="form-group">
       <label for="name">Full Name</label>
-      <input type="text" id="name" placeholder="Enter your full name" required>
+      <input type="text" id="name" placeholder="Enter your full name" name="fullname" required>
     </div>
 
     <div class="form-group">
       <label for="email">Email</label>
-      <input type="email" id="email" placeholder="Enter your email" required>
+      <input type="email" id="email" placeholder="Enter your email" name="email" required>
     </div>
 
     <div class="form-group">
       <label for="address">Address</label>
-      <input type="text" id="address" placeholder="Enter your address" required>
+      <input type="text" id="address" placeholder="Enter your address" name="address" required>
     </div>
 
     <div class="form-group">
       <label for="city">City</label>
-      <input type="text" id="city" placeholder="Enter your city" required>
+      <input type="text" id="city" placeholder="Enter your city" name="city" required>
+    </div>
+
+    <div class="form-group">
+      <label for="state">State</label>
+      <input type="text" id="city" placeholder="Enter your state" name="state" required>
     </div>
 
     <div class="form-group">
       <label for="zip">ZIP Code</label>
-      <input type="text" id="zip" placeholder="Enter your ZIP code" required>
+      <input type="text" id="zip" placeholder="Enter your ZIP code" name="zipcode" required>
     </div>
 
     <div class="form-group">
       <label for="country">Country</label>
-      <select id="country" required>
+      <select id="country" name="country" required>
         <option value="">Select country</option>
         <option value="India">India</option>
         <option value="USA">USA</option>
@@ -138,9 +153,21 @@
     <div class="order-summary">
       <h3>Order Summary</h3>
       <ul>
-        <li><span>Product 1</span><span>$49.99</span></li>
-        <li><span>Product 2</span><span>$29.99</span></li>
-        <li><strong>Total</strong><strong>$79.98</strong></li>
+        <?php
+          $shipping = 0;
+          $subtotal =0;
+          $totalprice=0;
+
+           while($row = $show_ordered_result->fetch_assoc()){
+            $subtotal += $row['product_price'] *$row['product_quantity'];
+            $totalprice = $subtotal+$shipping;
+            echo'
+            <li><span>'.$row["product_name"].' x '.$row["product_quantity"].'</span><span>'.$row["product_price"] * $row["product_quantity"].'</span></li>';
+        }
+        echo '
+          <li><strong>Total</strong><strong>'.$totalprice.'</strong></li>';
+        ?>
+        
       </ul>
     </div>
 
