@@ -42,6 +42,8 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
         $shipping_detail_result = mysqli_query($conn,$shipping_detail_sql);
 
         if($shipping_detail_result){
+            $cart_item_remove_sql = "DELETE FROM `cart` WHERE `user_id`";
+            mysqli_query($conn,$cart_item_remove_sql);
             header("Location: order_pg.php");
         }
     // }

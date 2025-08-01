@@ -1,5 +1,8 @@
 <?php
 include_once("connection.php");
+if(!isset($_SESSION['username'])){
+  header("Location: ../../index.php");
+}
   $username = $_SESSION['username'];
   $email = $_SESSION['email'];
 ?>
@@ -294,7 +297,7 @@ include_once("connection.php");
       <p>Address: 1234 Elm Street, Springfield, IL</p>
       <button class="logout-btn"><a href="order_history.php">Order History</a></button>
       <button class="edit-btn" id="editbtn">Edit Profile</button>
-      <button class="logout-btn">Logout</button>
+      <button class="logout-btn"><a href="logout.php">Logout</a></button>
 
     </div>
   </section>

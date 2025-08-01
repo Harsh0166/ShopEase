@@ -1,6 +1,9 @@
 <?php
   include_once("connection.php");
 
+  if(!isset($_SESSION['username'])){
+  header("Location: ../../index.php");
+}
     $user_id = $_SESSION["user_id"];
     $show_ordered_sql = "SELECT * FROM `cart` WHERE `user_id` ='$user_id'";
     $show_ordered_result = mysqli_query($conn,$show_ordered_sql);

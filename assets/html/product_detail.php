@@ -1,5 +1,8 @@
 <?php
   include_once("connection.php");
+  if(!isset($_SESSION['username'])){
+  header("Location: ../../index.php");
+}
 
   if(isset($_GET['sno'])){
     $sno = $_GET['sno'];

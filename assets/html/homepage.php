@@ -236,7 +236,7 @@ if(!isset($_SESSION['username'])){
           <img src="S.jpg" alt="image not found">
           <h4>'.$product_name.'</h4>
           <p> Rs '.$price.'</p>
-          <a href="cart.php" class="add_cart_btn">Add to Cart</a>
+          <a href="add_to_cart.php?product_id='.$sno.'&product_name='.$product_name.'&price='.$price.'&product_image=1" class="add_cart_btn">Add to Cart</a>
           </a>
           </div>';
       };

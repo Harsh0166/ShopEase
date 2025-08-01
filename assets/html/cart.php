@@ -1,6 +1,9 @@
 <?php
 include_once("connection.php");
-
+$show = false;
+if(!isset($_SESSION['username'])){
+  header("Location: ../../index.php");
+}
 
 ?>
 
@@ -253,6 +256,10 @@ include_once("connection.php");
       $user_id = $_SESSION['user_id'];
         $show_ordered_sql = "SELECT * FROM `cart` WHERE `user_id` ='$user_id'";
         $show_ordered_result = mysqli_query($conn,$show_ordered_sql);
+        $count = mysqli_num_rows($show_ordered_result);
+        if($count != 0){
+          $show = true;
+        }
         $subtotal =0;
         $totalprice=0;
         while($row = $show_ordered_result->fetch_assoc()){
@@ -268,7 +275,9 @@ include_once("connection.php");
             </div>
             <div class="item-actions">
               <input type="number" value="'.$row['product_quantity'].'" min="1" sno= "'.$row['sno'].'" onchange="choose(this);">
-              <button>Remove</button>
+
+
+              <button><a href="remove_cart_item.php?sno='.$row['sno'].'">Remove</a></button>
             </div>
           </div>
           ';
@@ -280,19 +289,19 @@ include_once("connection.php");
   </div>
 
   <div class="cart-summary">
-    <h3>Order Summary</h3>
+       <?php
 
-    <?php
-    
-        echo '
-        <p>Subtotal: Rs'.$subtotal.'</p>
-        <p>Shipping: Free</p>
-        <p><strong>Total: Rs'.$totalprice.'</strong></p>';
+        if($show){
+          echo '
+                  <h3>Order Summary</h3>
+                  <p>Subtotal: Rs'.$subtotal.'</p>
+                  <p>Shipping: Free</p>
+                  <p><strong>Total: Rs'.$totalprice.'</strong></p>
+                  <button class="checkout-btn"><a href="checkout.php">Proceed to Checkout</a></button>';
 
-
+        }
     ?>
 
-    <button class="checkout-btn"><a href="checkout.php">Proceed to Checkout</a></button>
   </div>
 </div>
 
