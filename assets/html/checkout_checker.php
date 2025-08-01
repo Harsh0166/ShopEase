@@ -33,18 +33,18 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     $product_quantity_string = implode(", ", $product_quantity_array);
 
     
-    $shipping_checker_sql = "SELECT * FROM `ordered` WHERE `user_id`";
-    $shipping_checker_result = mysqli_query($conn,$shipping_checker_sql);
-    $count = mysqli_num_rows($shipping_checker_result);
+    // $shipping_checker_sql = "SELECT * FROM `ordered` WHERE `user_id`";
+    // $shipping_checker_result = mysqli_query($conn,$shipping_checker_sql);
+    // $count = mysqli_num_rows($shipping_checker_result);
     
-    if($count==0){
+    // if($count==0){
         $shipping_detail_sql = "INSERT INTO `ordered`(`sno`, `full_name`, `email`, `address`, `city`, `state`, `zip_code`, `country`, `product_name_string`, `product_price_string`, `product_quantity_string`, `tracking_status`, `user_id`, `status`) VALUES (Null,'$name','$email','$address','$city','$state','$zipcode','$country','$product_name_string','$product_price_string','$product_quantity_string','1','$user_id','1')";
         $shipping_detail_result = mysqli_query($conn,$shipping_detail_sql);
 
         if($shipping_detail_result){
             header("Location: order_pg.php");
         }
-    }
+    // }
     else{
         header("Location: order_pg.php");
     }

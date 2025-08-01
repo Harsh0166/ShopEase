@@ -291,7 +291,9 @@ include_once("connection.php");
   
       <?php
         $user_id = $_SESSION["user_id"];
-        $show_ordered_detail_sql = "SELECT * FROM `ordered` WHERE `user_id` = $user_id";
+        if(isset($_GET['order_id'])){
+            $order_id = $_GET['order_id'];
+            $show_ordered_detail_sql = "SELECT * FROM `ordered` WHERE `sno` = $order_id";
         $show_ordered_detail_result = mysqli_query($conn,$show_ordered_detail_sql);
         while($row = $show_ordered_detail_result->fetch_assoc()){
             $product_name_array = explode(", ", $row['product_name_string'] );
@@ -318,6 +320,8 @@ include_once("connection.php");
         <p>Total: <strong>'.$total_price.'</strong></p>
         <p>Shipping Address: <strong>'.$address.', '.$city.', '.$state.', '.$zipcode.'</strong></p>
       </div>';
+        }
+        
    ?>
       <!-- Order Items -->
       <div class="order-items-wrapper">
