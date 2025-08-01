@@ -5,6 +5,7 @@ if(!isset($_SESSION['username'])){
 }
   $username = $_SESSION['username'];
   $email = $_SESSION['email'];
+
 ?>
 
 <!DOCTYPE html>
@@ -14,7 +15,9 @@ if(!isset($_SESSION['username'])){
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Profile - ShopEase</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="stylesheet" href="../css/style.css">
+  <!-- <link rel="stylesheet" href="../css/style.css"> -->
+  <link rel="stylesheet" href="../css/navbar.css">
+  <link rel="stylesheet" href="../css/homepage_sidebar.css">
   <style>
     * {
       box-sizing: border-box;
@@ -26,105 +29,6 @@ if(!isset($_SESSION['username'])){
     body {
       background-color: #f5f5f5;
       overflow-x: hidden;
-    }
-
-    /* Header & Nav */
-    header {
-      background-color: #111;
-      color: white;
-      padding: 0.5rem 1rem;
-    }
-
-    .top-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .logo {
-      font-size: 1.5rem;
-      display: flex;
-      align-items: center;
-    }
-
-    .logo i {
-      margin-right: 0.5rem;
-    }
-
-    .search-bar {
-      width: 100%;
-      margin: 0.5rem 0;
-    }
-
-    .search-bar input {
-      width: 100%;
-      padding: 0.5rem;
-      border-radius: 4px;
-      border: none;
-    }
-
-    nav {
-      display: flex;
-      gap: 1rem;
-      justify-content: flex-end;
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      font-size: 1rem;
-    }
-
-    nav a i {
-      margin-right: 4px;
-    }
-
-    .menu-toggle {
-      font-size: 2rem;
-      cursor: pointer;
-      color: white;
-      display: none;
-    }
-
-    .sidebar {
-      position: fixed;
-      top: 0;
-      left: -100%;
-      height: 100vh;
-      width: 250px;
-      background-color: #222;
-      color: white;
-      padding: 2rem 1rem;
-      transition: 0.3s ease;
-      z-index: 999;
-    }
-
-    .sidebar.open {
-      left: 0;
-    }
-
-    .sidebar a {
-      display: block;
-      margin-bottom: 1.5rem;
-      color: white;
-      text-decoration: none;
-      font-size: 1.2rem;
-    }
-
-    .overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0,0,0,0.5);
-      display: none;
-      z-index: 998;
-    }
-
-    .overlay.active {
-      display: block;
     }
 
     .profile-container {
@@ -219,25 +123,20 @@ if(!isset($_SESSION['username'])){
       cursor: pointer;
       color: #888;
     }
+       footer {
+      background-color: #111;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+    }
     /* Mobile view */
     @media (max-width: 768px) {
-      .top-bar {
-        flex-direction: row;
-        justify-content: space-between;
-      }
-
-      .search-bar {
-        order: 2;
-        width: 100%;
-        margin: 0.5rem 0;
-      }
-
-      nav {
+      .pc-navbar {
         display: none;
       }
 
-      .menu-toggle {
-        display: block;
+      .mobile-navbar {
+        display: flex;
       }
     }
     a{
@@ -245,19 +144,7 @@ if(!isset($_SESSION['username'])){
         color: white;
     }
     @media (min-width: 769px) {
-      .top-bar {
-        flex-direction: row;
-      }
-
-      .search-bar {
-        width: 50%;
-      }
-
-      nav {
-        display: flex;
-      }
-
-      .menu-toggle {
+      .mobile-navbar {
         display: none;
       }
     }
@@ -265,20 +152,32 @@ if(!isset($_SESSION['username'])){
 </head>
 <body>
 
-  <header>
-    <div class="top-bar">
+ 
+ <!-- Desktop Navbar -->
+  <div class="pc-navbar">
+    <div class="logo"><i class="fas fa-store"></i> ShopEase</div>
+    <div class="search-bar">
+      <input type="text" placeholder="Search products...">
+    </div>
+    <nav>
+      <a href="homepage.php"><i class="fas fa-home"></i> Home</a>
+      <a href="cart.php"><i class="fas fa-cart-shopping"></i> Cart</a>
+      <a href="profile.php"><i class="fas fa-user"></i> Profile</a>
+    </nav>
+  </div>
+
+  <!-- Mobile Navbar -->
+  <div class="mobile-navbar">
+    <div class="mobile-top">
       <div class="menu-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
       <div class="logo"><i class="fas fa-store"></i> ShopEase</div>
-      <div class="search-bar"><input type="text" placeholder="Search products..."></div>
-      <nav>
-        <a href="homepage.php"><i class="fas fa-home"></i> Home</a>
-    <a href="cart.php"><i class="fas fa-cart-shopping"></i> Cart</a>
-    <a href="profile.php"><i class="fas fa-user"></i> Profile</a>
-      </nav>
     </div>
-  </header>
+    <div class="mobile-search">
+      <input type="text" placeholder="Search products...">
+    </div>
+  </div>
 
-  <!-- Sidebar -->
+  <!-- Sidebar Menu -->
   <div class="sidebar" id="sidebar">
     <a href="homepage.php"><i class="fas fa-home"></i> Home</a>
     <a href="cart.php"><i class="fas fa-cart-shopping"></i> Cart</a>
@@ -286,31 +185,44 @@ if(!isset($_SESSION['username'])){
   </div>
   <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
+<?php
+    $name = $_SESSION['username'];
+    $email = $_SESSION['email'];
+      $profile_sql = "SELECT * FROM `user_registration` WHERE `username`= '$name' AND `email` ='$email'";
+      $profile_result = mysqli_query($conn,$profile_sql);
+      while($row = $profile_result->fetch_assoc()){
+        $username = $row['username'];
+        $email = $row['email'];
+        $address = $row['address'];
+      }
+
+    ?>
   <!-- Profile Content -->
   <section class="profile-container">
     <div class="profile-card">
       <img src="https://picsum.photos/120?random=1" alt="Profile Picture">
 
       <?php echo '<h2>'.$username.'</h2>';
-            echo '<p>Email : '.$email.'</p>';
+            echo '<p>Email : '.$email.'</p>
+            <p>Address: '.$address.'</p>';
       ?>
-      <p>Address: 1234 Elm Street, Springfield, IL</p>
-      <button class="logout-btn"><a href="order_history.php">Order History</a></button>
+      
+      <a href="order_history.php"><button class="logout-btn">Order History</button></a>
       <button class="edit-btn" id="editbtn">Edit Profile</button>
-      <button class="logout-btn"><a href="logout.php">Logout</a></button>
+      <a href="logout.php"><button class="logout-btn">Logout</button></a>
 
     </div>
   </section>
-
+    
 
   <div id="popup" class="popup-overlay">
   <div class="popup-box">
     <span class="close-btn" id="closePopup">&times;</span>
     <h3>Edit Profile</h3>
-    <form id="emailForm" action="" method="GET">
-      <input type="text" id="email" name="username" placeholder="username" >
-      <input type="email" id="email" name="email" placeholder="email" >
-      <input type="textarea" id="email" name="address" placeholder="address" >
+    <form id="emailForm" action="profile_update.php" method="GET">
+      <input type="text" id="email" name="username" placeholder="username" value="<?php echo $username ?>" >
+      <input type="email" id="email" name="email" placeholder="email" value="<?php echo $email ?>" >
+      <input type="textarea" id="email" name="address" placeholder="address" value="<?php echo $address ?>">
 
       <div class="popup-actions">
         <button type="submit">Update</button>
@@ -319,6 +231,7 @@ if(!isset($_SESSION['username'])){
     </form>
   </div>
 </div>
+
 
   <footer>
     &copy; 2025 ShopEase. All rights reserved.

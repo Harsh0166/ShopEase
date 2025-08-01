@@ -263,7 +263,7 @@ if(!isset($_SESSION['username'])){
     <div class="top-bar">
       <div class="menu-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
       <div class="logo"><i class="fas fa-store"></i> ShopEase</div>
-      <div class="search-bar"><input type="text" placeholder="Search products..."></div>
+      <!-- <div class="search-bar"><input type="text" placeholder="Search products..."></div> -->
       <nav>
         <a href="homepage.php"><i class="fas fa-home"></i> Home</a>
         <a href="cart.php"><i class="fas fa-cart-shopping"></i> Cart</a>

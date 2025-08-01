@@ -102,11 +102,13 @@ if(!isset($_SESSION['username'])){
     /* Cart Section */
     .cart-container {
       max-width: 1200px;
+      height: 80vh;
       margin: 2rem auto;
       padding: 1rem;
       background: white;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      position: relative;
     }
     .cart-title {
       font-size: 2rem;
@@ -164,6 +166,9 @@ if(!isset($_SESSION['username'])){
 
     /* Cart Summary */
     .cart-summary {
+      position: absolute;
+      bottom: 3rem;
+      right: 2rem;
       margin-top: 2rem;
       text-align: right;
     }
@@ -197,6 +202,17 @@ if(!isset($_SESSION['username'])){
       padding: 1rem;
       margin-top: 2rem;
     }
+    .empty-cart {
+      height: 60vh;
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.empty-cart img {
+  width: 50%;
+  margin-bottom: 15px;
+  opacity: 0.8;
+}
 
     /* Responsive */
     @media (max-width: 768px) {
@@ -219,6 +235,7 @@ if(!isset($_SESSION['username'])){
         gap: 1rem;
       }
       .cart-summary {
+              bottom: 1rem;
         text-align: center;
       }
     }
@@ -259,13 +276,21 @@ if(!isset($_SESSION['username'])){
         $count = mysqli_num_rows($show_ordered_result);
         if($count != 0){
           $show = true;
+          
+        }
+        if ($count == 0) {
+          echo '
+            <div class="empty-cart">
+              <img src="image.png" alt="Empty Cart" />
+            </div>
+          ';
         }
         $subtotal =0;
         $totalprice=0;
         while($row = $show_ordered_result->fetch_assoc()){
           $shipping = 0;
-        $subtotal += $row['product_price'] *$row['product_quantity'];
-        $totalprice = $subtotal+$shipping;
+          $subtotal += $row['product_price'] *$row['product_quantity'];
+          $totalprice = $subtotal+$shipping;
           echo '
             <div class="cart-item">
             <img src="https://picsum.photos/100?random=1" alt="Product 1">
@@ -281,10 +306,7 @@ if(!isset($_SESSION['username'])){
             </div>
           </div>
           ';
-    }
-    
-
-  
+        }
   ?>
   </div>
 

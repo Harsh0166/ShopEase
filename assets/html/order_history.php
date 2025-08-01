@@ -135,7 +135,7 @@
 
     /* Table styling */
     .order-history-table-wrapper {
-      overflow-x: auto; /* Makes the table scrollable horizontally */
+      overflow-x: auto; 
       margin-bottom: 2rem;
     }
 
@@ -223,6 +223,7 @@
       .menu-toggle {
         display: none;
       }
+   
     }
   </style>
 </head>

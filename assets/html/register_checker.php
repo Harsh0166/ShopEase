@@ -9,7 +9,7 @@ $result_registration = mysqli_query($conn,$sql_registration_checker);
 $count = mysqli_num_rows($result_registration);
 if($count == 0){
 
-    $sql = "INSERT INTO `user_registration`(`S.no.`, `username`, `email`, `password`,`status`) VALUES (NULL ,'$name','$email','$password','1')";
+    $sql = "INSERT INTO `user_registration`(`S.no.`, `username`, `email`, `password`,`address`,`status`) VALUES (NULL ,'$name','$email','$password','','1')";
 
     $result = mysqli_query($conn,$sql);
     

@@ -254,37 +254,6 @@ if(!isset($_SESSION['username'])){
       document.getElementById('sidebar').classList.toggle('open');
       document.getElementById('overlay').classList.toggle('active');
     }
-
-    // const categories = ['Electronics', 'Fashion', 'Accessories'];
-    // const container = document.getElementById('categorySections');
-
-    // const categoryMap = {
-    //   'Electronics': [],
-    //   'Fashion': [],
-    //   'Accessories': []
-    // };
-
-    // for (let i = 1; i <= 50; i++) {
-    //   const cat = categories[i % 3];
-    //   categoryMap[cat].push({
-    //     name: `Product ${i}`,
-    //     price: `$${(Math.random() * 100 + 10).toFixed(2)}`,
-    //     image: `https://picsum.photos/200?random=${i}`
-    //   });
-    // }
-
-    // categories.forEach(cat => {
-    //   const section = document.createElement('div');
-    //   section.className = 'category-section';
-    //   section.innerHTML = `<h3>${cat}</h3><div class="product-row">${categoryMap[cat].map(prod => `
-    //     <div class="product-card">
-    //       <img src="${prod.image}" alt="${prod.name}">
-    //       <h4>${prod.name}</h4>
-    //       <p>${prod.price}</p>
-    //       <button>Add to Cart</button>
-    //     </div>`).join('')}</div>`;
-    //   container.appendChild(section);
-    // });
   </script>
 
 </body>
