@@ -1,3 +1,7 @@
+<?php
+include_once("connection.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -111,9 +115,9 @@
   <div class="sidebar" id="sidebar">
     <div class="logo"><i class="fas fa-cogs"></i>Admin</div>
     <div class="close-btn" onclick="toggleMenu()"><i class="fas fa-times"></i></div>
-    <a href="#">Dashboard</a>
+   <a href="admin_pg.php">Dashboard</a>
     <a href="product_manage.php">Manage Products</a>
-    <a href="#">Manage Orders</a>
+    <a href="order_management.php">Manage Orders</a>
     <a href="#">Manage Users</a>
     <a href="#">Sales Analytics</a>
   </div>
@@ -127,22 +131,44 @@
       <h1>Admin Dashboard</h1>
       <button class="btn">Logout</button>
     </div>
+<?php
+  $user_id = $_SESSION["user_id"];
+  $show_ordered_detail_sql = "SELECT * FROM `ordered`";
+  $show_ordered_detail_result = mysqli_query($conn,$show_ordered_detail_sql);
+  $total_order = mysqli_num_rows($show_ordered_detail_result); 
+  $total_price = 0;
+  while($row = $show_ordered_detail_result->fetch_assoc()){
+    $product_price_array = explode(", ",$row['product_price_string'] );
+
+
+    $total_product = count($product_price_array);
+
+   
+    for($j=0;$j<$total_product;$j++){
+      $total_price +=(float)$product_price_array[$j];
+    }
+
+  }
+?>
+
 
     <!-- Stats Section -->
     <div class="stats">
       <div class="stat-card">
         <h3>Total Orders</h3>
-        <p>250</p>
+        <p><?php echo $total_order ?></p>
       </div>
       <div class="stat-card">
         <h3>Total Sales</h3>
-        <p>$12,500</p>
+        <p><?php echo $total_price ?></p>
       </div>
       <div class="stat-card">
         <h3>Pending Orders</h3>
         <p>35</p>
       </div>
     </div>
+
+
 
     <!-- Product List -->
     <div class="product-list">
@@ -156,25 +182,28 @@
             <th>Actions</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>Smartphone X1 Pro</td>
-            <td>$499.99</td>
-            <td>20</td>
+    <tbody>
+<?php
+      $load_product_sql = "SELECT * FROM `product_detail`";
+      $load_product_result = mysqli_query($conn,$load_product_sql);
+      while($row = $load_product_result->fetch_assoc()){
+        $product_id = $row['s. no.'];
+        $product_name = $row['product_name'];
+        $price = $row['price'];
+        $stock = $row['stock_quantity'];
+        echo
+        '<tr>
+            <td>'.$product_name.'</td>
+            <td>'.$price.'</td>
+            <td>'.$stock.'</td>
             <td>
-              <button class="btn">Edit</button>
+              <a href = "edit_product.php?product_id='.$product_id.'"><button class="btn">Edit</button></a>
               <button class="btn">Delete</button>
             </td>
-          </tr>
-          <tr>
-            <td>Headphones Pro</td>
-            <td>$100.00</td>
-            <td>50</td>
-            <td>
-              <button class="btn">Edit</button>
-              <button class="btn">Delete</button>
-            </td>
-          </tr>
+          </tr>';
+      }
+?>   
+      
         </tbody>
       </table>
     </div>

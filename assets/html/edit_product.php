@@ -2,6 +2,7 @@
     include_once("connection.php");
 
     if($_SERVER["REQUEST_METHOD"] == "POST"){
+        $product_id = $_POST["product_id"];
         $product_name = $_POST["product_name"];
         $product_price = $_POST["price"];
         $product_stock = $_POST["stock"];
@@ -9,16 +10,16 @@
         $product_description = $_POST["description"];
         $product_image = $_POST["image"];
 
-        $product_add_sql = "INSERT INTO `product_detail`(`s. no.`, `product_name`, `price`, `stock_quantity`, `category`, `description`, `image`) VALUES ( NULL,'$product_name','$product_price','$product_stock','$product_categoory','$product_description','')";
+        $product_add_sql = "UPDATE `product_detail` SET `product_name`='$product_name',`price`='$product_price',`stock_quantity`='$product_stock',`category`='$product_categoory',`description`='$product_description',`image`='[value-7]' WHERE `s. no.` = '$product_id'";
         $product_add_result = mysqli_query($conn,$product_add_sql);
        
 
         if($product_add_result){
 
-            header("Location: product_manage.php?1");
+            header("Location: product_manage.php?product_id=$product_id&msg=1");
         }
         else{
-             header("Location: product_manage.php?2");
+             header("Location: product_manage.php?product_id=$product_id&msg=2");
         }
 
     }
@@ -123,20 +124,36 @@
       <h1>Manage product</h1>
       <button class="btn">Logout</button>
     </div>
-
+<?php
+    if(isset($_GET['product_id'])){
+        $product_id = $_GET['product_id'];
+        $load_product_sql = "SELECT * FROM `product_detail`WHERE `s. no.`= '$product_id'";
+        $load_product_result = mysqli_query($conn,$load_product_sql);
+        while($row = $load_product_result->fetch_assoc()){
+            $product_no = $row['s. no.'];
+            $product_name = $row['product_name'];
+            $price = $row['price'];
+            $stock = $row['stock_quantity'];
+            $category = $row['category'];
+            $description = $row['description'];
+            
+        }
+    }
+?>
   <div class="form-container">
     <form id="addProductForm" action="" method="POST">
       <label for="name">Product Name</label>
-      <input type="text" id="name" name="product_name" required />
+      <input type="hidden" value="<?php echo $product_no; ?>" name="product_id" >
+      <input type="text" id="name" name="product_name" value="<?php echo $product_name?>" required />
 
       <label for="price">Price</label>
-      <input type="number" id="price" name="price" required />
+      <input type="number" id="price" name="price" value="<?php echo $price ?>" required />
 
       <label for="stock">Stock Quantity</label>
-      <input type="number" id="stock" name="stock" required />
+      <input type="number" id="stock" name="stock" value="<?php echo $stock ?>" required />
 
       <label for="category">Category</label>
-      <select id="category" name="category" required>
+      <select id="category" name="category" value="<?php echo $category ?>" required>
         <option value="">Select a category</option>
         <option value="electronics">Electronics</option>
         <option value="fashion">Fashion</option>
@@ -145,7 +162,7 @@
       </select>
 
       <label for="description">Description</label>
-      <textarea id="description" name="description" rows="4" required></textarea>
+      <textarea id="description" name="description" rows="4" value="<?php echo $description ?>" required></textarea>
 
       <label for="image">Product Image</label>
       <input type="file" id="image" name="image" accept="image/*" required />
@@ -156,13 +173,13 @@
 
   <script>
     var loc = window.location.href;
-    loc=loc.split("?")[1];
+    loc=loc.split("?")[1].split("&")[1].split("=")[1];
     if(loc == 1){
-        alert("Added successfully");
+        alert("update successfully");
     }
-    else if(loc==2){
+    else if(loc== 2){
 
-          alert("Not added");
+          alert("Not updated");
     }
 
       function toggleMenu() {
