@@ -7,11 +7,15 @@
         $product_stock = $_POST["stock"];
         $product_categoory = $_POST["category"];
         $product_description = $_POST["description"];
-        $product_image = $_POST["image"];
 
-        $product_add_sql = "INSERT INTO `product_detail`(`s. no.`, `product_name`, `price`, `stock_quantity`, `category`, `description`, `image`) VALUES ( NULL,'$product_name','$product_price','$product_stock','$product_categoory','$product_description','')";
+        $product_image = $_FILES["image"]["name"];
+        $temp_product_image = $_FILES["image"]["tmp_name"];
+        $folder = "../img/".$product_image;
+
+
+        $product_add_sql = "INSERT INTO `product_detail`(`s. no.`, `product_name`, `price`, `stock_quantity`, `category`, `description`, `image`) VALUES ( NULL,'$product_name','$product_price','$product_stock','$product_categoory','$product_description','$product_image')";
         $product_add_result = mysqli_query($conn,$product_add_sql);
-       
+        move_uploaded_file($temp_product_image,$folder);
 
         if($product_add_result){
 
@@ -125,7 +129,7 @@
     </div>
 
   <div class="form-container">
-    <form id="addProductForm" action="" method="POST">
+    <form id="addProductForm" action="" method="POST" enctype="multipart/form-data">
       <label for="name">Product Name</label>
       <input type="text" id="name" name="product_name" required />
 
@@ -159,6 +163,7 @@
     loc=loc.split("?")[1];
     if(loc == 1){
         alert("Added successfully");
+        window.location.href = "product_manage.php";
     }
     else if(loc==2){
 

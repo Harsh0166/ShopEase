@@ -200,7 +200,7 @@ if(!isset($_SESSION['username'])){
   <!-- Profile Content -->
   <section class="profile-container">
     <div class="profile-card">
-      <img src="https://picsum.photos/120?random=1" alt="Profile Picture">
+      <!-- <img src="https://picsum.photos/120?random=1" alt="Profile Picture"> -->
 
       <?php echo '<h2>'.$username.'</h2>';
             echo '<p>Email : '.$email.'</p>
@@ -223,7 +223,6 @@ if(!isset($_SESSION['username'])){
       <input type="text" id="email" name="username" placeholder="username" value="<?php echo $username ?>" >
       <input type="email" id="email" name="email" placeholder="email" value="<?php echo $email ?>" >
       <input type="textarea" id="email" name="address" placeholder="address" value="<?php echo $address ?>">
-
       <div class="popup-actions">
         <button type="submit">Update</button>
         <button type="button" id="cancelBtn">Cancel</button>

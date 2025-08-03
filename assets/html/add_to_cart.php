@@ -5,7 +5,7 @@ include_once("connection.php");
         $product_id = $_GET['product_id'];
         $product_name = $_GET['product_name'];
         $price = $_GET['price'];
-        $product_image = 1;
+        $product_image = $_GET['product_image'];
         $user_id = $_SESSION['user_id'];
 
         $check_ordered_sql = "SELECT * FROM `cart` WHERE `product_id` ='$product_id' && `user_id` ='$user_id'";

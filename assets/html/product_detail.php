@@ -13,6 +13,7 @@
     $price = $row['price'];
     $description = $row['description'];
     $image = $row['image'];
+    $category = $row['category'];
   }
 
    if(isset($_POST['review'])){
@@ -71,10 +72,18 @@
 }
 
 
+.product-image {
+  width: 100%;
+  max-width: 700px;
+  margin: auto;
+  border: 2px solid #ccc;
+}
+
 .product-image img {
-  width: 700px;
+  width: 100%;
   height: auto;
   border-radius: 10px;
+  display: block;
 }
 
 .product-info {
@@ -143,6 +152,10 @@
     text-align: center;
     margin-top: 1rem;
   }
+  .product-image {
+    max-width: 100%;
+    padding: 0 10px;
+  }
     }
 
     @media (min-width: 769px) {
@@ -208,14 +221,14 @@
 
       echo '
     <div class="product-image">
-      <img src="https://picsum.photos/300?random=1" alt="Product Image" />
+      <img src="../img/'.$image.'" alt="image not found">
     </div>
     <div class="product-info">
       <h2>'.$product_name .'</h2>
       <div class="rating">★★★★☆ (4.2/5) - 145 Reviews</div>
       <div class="price">Rs '.$price.'</div>
       <p class="description">'.$description.'</p>
-      <a href="add_to_cart.php?product_id='.$sno.'&product_name='.$product_name.'&price='.$price.'&product_image=1"  class="add-to-cart">Add to Cart</a>
+      <a href="add_to_cart.php?product_id='.$sno.'&product_name='.$product_name.'&price='.$price.'&product_image='.$image.'"  class="add-to-cart">Add to Cart</a>
 
    
       <h3 style="margin: 2rem 0 1rem;">Customer Ratings</h3>
@@ -275,30 +288,29 @@
       <!-- Similar Products Section -->
 <h2>Similar Products</h2>
 <div style="overflow-x: auto; white-space: nowrap; padding: 1rem; margin-bottom: 2rem;">
-  <div style="display: inline-block; width: 200px; margin-right: 1rem; background: #fff; border-radius: 8px; box-shadow: 0 0 5px rgba(0,0,0,0.1);">
-    <img src="https://picsum.photos/200?random=11" alt="Product 1" style="width: 100%; border-top-left-radius:8px; border-top-right-radius:8px;">
-    <div style="padding: 0.5rem;">
-      <h4 style="font-size: 1rem;">Smartwatch Y2</h4>
-      <p style="color: #e74c3c;">$199.99</p>
-    </div>
-  </div>
+<?php
+  $product_id = $sno;
 
-  <div style="display: inline-block; width: 200px; margin-right: 1rem; background: #fff; border-radius: 8px; box-shadow: 0 0 5px rgba(0,0,0,0.1);">
-    <img src="https://picsum.photos/200?random=12" alt="Product 2" style="width: 100%; border-top-left-radius:8px; border-top-right-radius:8px;">
-    <div style="padding: 0.5rem;">
-      <h4 style="font-size: 1rem;">Wireless Earbuds</h4>
-      <p style="color: #e74c3c;">$99.99</p>
-    </div>
-  </div>
+  $similar_product_sql = "SELECT * FROM `product_detail` WHERE `category` ='$category'";
+  $similar_product_result = mysqli_query($conn,$similar_product_sql);
 
-  <div style="display: inline-block; width: 200px; margin-right: 1rem; background: #fff; border-radius: 8px; box-shadow: 0 0 5px rgba(0,0,0,0.1);">
-    <img src="https://picsum.photos/200?random=13" alt="Product 3" style="width: 100%; border-top-left-radius:8px; border-top-right-radius:8px;">
-    <div style="padding: 0.5rem;">
-      <h4 style="font-size: 1rem;">Bluetooth Speaker</h4>
-      <p style="color: #e74c3c;">$59.99</p>
-    </div>
-  </div>
+  while($row=$similar_product_result->fetch_assoc()){
+    $category_product_name = $row['product_name'];
+    $category_product_price = $row['price'];
+    $category_product_image = $row['image'];
 
+    echo '
+        <div style="display: inline-block; width: 200px; margin-right: 1rem; background: #fff; border-radius: 8px; box-shadow: 0 0 5px rgba(0,0,0,0.1);">
+        <img src="../img/'.$category_product_image.'" alt="image not found" style="width: 100%; border-top-left-radius:8px; border-top-right-radius:8px;">
+        <div style="padding: 0.5rem;">
+          <h4 style="font-size: 1rem;">'.$category_product_name.'</h4>
+          <p style="color: #e74c3c;">RS'.$category_product_price.'</p>
+        </div>
+      </div>
+    ';
+  }
+
+?>
   <!-- Add more products if you want -->
 </div>
 </section>

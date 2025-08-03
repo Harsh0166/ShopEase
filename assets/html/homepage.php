@@ -129,7 +129,6 @@ if(!isset($_SESSION['username'])){
       padding: 1rem;
       box-sizing: border-box;
     }
-
     footer {
       background-color: #111;
       color: white;
@@ -205,13 +204,14 @@ if(!isset($_SESSION['username'])){
         $sno = $row['s. no.'];
         $product_name = $row['product_name'];
         $price = $row['price'];
+        $image = $row['image'];
 
         echo '<div class="product-card">
           <a href="product_detail.php?sno='.$sno.'">
-          <img src="S.jpg" alt="image not found">
+          <img src="../img/'.$image.'" alt="image not found">
           <h4>'.$product_name.'</h4>
           <p> Rs '.$price.'</p>
-          <a href="add_to_cart.php?product_id='.$sno.'&product_name='.$product_name.'&price='.$price.'&product_image=1" class="add_cart_btn">Add to Cart</a>
+          <a href="add_to_cart.php?product_id='.$sno.'&product_name='.$product_name.'&price='.$price.'&product_image='.$image.'" class="add_cart_btn">Add to Cart</a>
           </a>
           </div>';
       };
@@ -233,10 +233,10 @@ if(!isset($_SESSION['username'])){
 
         echo '<div class="product-card">
           <a href="product_detail.php?sno='.$sno.'">
-          <img src="S.jpg" alt="image not found">
+          <img src="../img/'.$image.'" alt="image not found">
           <h4>'.$product_name.'</h4>
           <p> Rs '.$price.'</p>
-          <a href="add_to_cart.php?product_id='.$sno.'&product_name='.$product_name.'&price='.$price.'&product_image=1" class="add_cart_btn">Add to Cart</a>
+          <a href="add_to_cart.php?product_id='.$sno.'&product_name='.$product_name.'&price='.$price.'&product_image='.$image.'" class="add_cart_btn">Add to Cart</a>
           </a>
           </div>';
       };

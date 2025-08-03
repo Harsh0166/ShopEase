@@ -281,7 +281,7 @@ if(!isset($_SESSION['username'])){
         if ($count == 0) {
           echo '
             <div class="empty-cart">
-              <img src="image.png" alt="Empty Cart" />
+              <img src="../img/empty_cart.png" alt="Empty Cart" />
             </div>
           ';
         }
@@ -293,7 +293,7 @@ if(!isset($_SESSION['username'])){
           $totalprice = $subtotal+$shipping;
           echo '
             <div class="cart-item">
-            <img src="https://picsum.photos/100?random=1" alt="Product 1">
+            <img src="../img/'.$row['product_image'].'" alt="image not found">
             <div class="item-details">
               <h4>'.$row['product_name'].'</h4>
               <p class="price"> Rs'.$row['product_price'].'</p>
