@@ -276,7 +276,7 @@
                   $product_qyantity_array = explode(", ",$row['product_quantity_string'] );
 
                   $order_id = $row['sno'];
-                  $date_time = $row['time'];
+                  $date_time = $row['date_time'];
                   $status = $row['status'];
 
                   $total_price = 0;

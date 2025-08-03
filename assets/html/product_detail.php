@@ -308,6 +308,15 @@
         </div>
       </div>
     ';
+    // echo '<div class="product-card">
+    //       <a href="product_detail.php?sno='.$sno.'">
+    //       <img src="../img/'.$other_image.'" alt="image not found">
+    //       <h4>'.$product_name.'</h4>
+    //       <p> Rs '.$price.'</p>
+    //       <a href="add_to_cart.php?product_id='.$sno.'&product_name='.$product_name.'&price='.$price.'&product_image='.$other_image.'" class="add_cart_btn">Add to Cart</a>
+    //       </a>
+    //       </div>';
+    //   ;
   }
 
 ?>

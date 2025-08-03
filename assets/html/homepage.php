@@ -160,8 +160,15 @@ if(!isset($_SESSION['username'])){
   <div class="pc-navbar">
     <div class="logo"><i class="fas fa-store"></i> ShopEase</div>
     <div class="search-bar">
-      <input type="text" placeholder="Search products...">
+      <form action="search.php" method="GET">
+        <input type="text" name="query" placeholder="Search products..." required>
+        <button type="submit" class="search-btn">
+          <i class="fas fa-search"></i>
+        </button>
+      </form>
     </div>
+
+
     <nav>
       <a href="homepage.php"><i class="fas fa-home"></i> Home</a>
       <a href="cart.php"><i class="fas fa-cart-shopping"></i> Cart</a>
@@ -175,8 +182,13 @@ if(!isset($_SESSION['username'])){
       <div class="menu-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
       <div class="logo"><i class="fas fa-store"></i> ShopEase</div>
     </div>
-    <div class="mobile-search">
-      <input type="text" placeholder="Search products...">
+    <div class="search-bar">
+      <form action="search.php" method="GET">
+        <input type="text" name="query" placeholder="Search products..." required>
+        <button type="submit" class="search-btn">
+          <i class="fas fa-search"></i>
+        </button>
+      </form>
     </div>
   </div>
 
@@ -204,14 +216,14 @@ if(!isset($_SESSION['username'])){
         $sno = $row['s. no.'];
         $product_name = $row['product_name'];
         $price = $row['price'];
-        $image = $row['image'];
+        $electronic_image = $row['image'];
 
         echo '<div class="product-card">
           <a href="product_detail.php?sno='.$sno.'">
-          <img src="../img/'.$image.'" alt="image not found">
+          <img src="../img/'.$electronic_image.'" alt="image not found">
           <h4>'.$product_name.'</h4>
           <p> Rs '.$price.'</p>
-          <a href="add_to_cart.php?product_id='.$sno.'&product_name='.$product_name.'&price='.$price.'&product_image='.$image.'" class="add_cart_btn">Add to Cart</a>
+          <a href="add_to_cart.php?product_id='.$sno.'&product_name='.$product_name.'&price='.$price.'&product_image='.$electronic_image.'" class="add_cart_btn">Add to Cart</a>
           </a>
           </div>';
       };
@@ -230,13 +242,15 @@ if(!isset($_SESSION['username'])){
         $sno = $row['s. no.'];
         $product_name = $row['product_name'];
         $price = $row['price'];
+        $other_image = $row['image'];
+
 
         echo '<div class="product-card">
           <a href="product_detail.php?sno='.$sno.'">
-          <img src="../img/'.$image.'" alt="image not found">
+          <img src="../img/'.$other_image.'" alt="image not found">
           <h4>'.$product_name.'</h4>
           <p> Rs '.$price.'</p>
-          <a href="add_to_cart.php?product_id='.$sno.'&product_name='.$product_name.'&price='.$price.'&product_image='.$image.'" class="add_cart_btn">Add to Cart</a>
+          <a href="add_to_cart.php?product_id='.$sno.'&product_name='.$product_name.'&price='.$price.'&product_image='.$other_image.'" class="add_cart_btn">Add to Cart</a>
           </a>
           </div>';
       };

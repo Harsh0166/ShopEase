@@ -112,9 +112,9 @@
 <?php
     $name = $_SESSION['username'];
     $email = $_SESSION['email'];
-    $shipping_checker_sql = "SELECT * FROM `ordered` WHERE `user_id`";
+    $shipping_checker_sql = "SELECT * FROM `ordered` WHERE `user_id`='$user_id'";
     $shipping_checker_result = mysqli_query($conn,$shipping_checker_sql);
-      while($row = $shipping_checker_result->fetch_assoc()){
+      if($row = $shipping_checker_result->fetch_assoc()){
         $username = $row['full_name'];
         $email = $row['email'];
         $address = $row['address'];
@@ -124,43 +124,48 @@
         $country = $row['country'];
 
       }
+      else{
+        $username = $_SESSION['username'] ?? '';
+        $email = $_SESSION['email'] ?? '';
+        $address = $city = $state = $zipcode = $country = '';
+      }
 ?>
 <div class="checkout-container">
   <h2>Shipping Details</h2>
   <form class="form" action="checkout_checker.php" method="POST">
     <div class="form-group">
       <label for="name">Full Name</label>
-      <input type="text" id="name" placeholder="Enter your full name" name="fullname" value="<?php echo $username?>" required>
+      <input type="text" id="name" placeholder="Enter your full name" name="fullname" value="<?php echo htmlspecialchars($username)?>" required>
     </div>
 
     <div class="form-group">
       <label for="email">Email</label>
-      <input type="email" id="email" placeholder="Enter your email" name="email" value="<?php echo $email?>" required>
+      <input type="email" id="email" placeholder="Enter your email" name="email" value="<?php echo htmlspecialchars($email) ?>" required>
     </div>
 
     <div class="form-group">
       <label for="address">Address</label>
-      <input type="text" id="address" placeholder="Enter your address" name="address" value="<?php echo $address?>" required>
+      <input type="text" id="address" placeholder="Enter your address" name="address" value="<?php echo htmlspecialchars($address) ?>" required>
     </div>
 
     <div class="form-group">
       <label for="city">City</label>
-      <input type="text" id="city" placeholder="Enter your city" name="city" value="<?php echo $city?>" required>
+      <input type="text" id="city" placeholder="Enter your city" name="city" value="<?php echo htmlspecialchars($city) ?>" required>
     </div>
 
     <div class="form-group">
       <label for="state">State</label>
-      <input type="text" id="city" placeholder="Enter your state" name="state" value="<?php echo $state?>" required>
+      <input type="text" id="city" placeholder="Enter your state" name="state" value="<?php echo htmlspecialchars($state) ?>" required>
     </div>
 
     <div class="form-group">
       <label for="zip">ZIP Code</label>
-      <input type="text" id="zip" placeholder="Enter your ZIP code" name="zipcode" value="<?php echo $zipcode?>" required>
+      <input type="text" id="zip" placeholder="Enter your ZIP code" name="zipcode" value="<?php echo htmlspecialchars($zipcode) ?>" required>
     </div>
 
     <div class="form-group">
       <label for="country">Country</label>
-      <select id="country" name="country" value="<?php echo $country?>" required>
+      <select id="country" name="country" value="<?php echo htmlspecialchars($country)?>" required>
         <option value="">Select country</option>
         <option value="India">India</option>
         <option value="USA">USA</option>

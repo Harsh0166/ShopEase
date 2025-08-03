@@ -23,7 +23,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     }
     else{
-        header("Location: ../../index.php");
+        echo "<script>
+        alert('User not found');
+        window.location.href = '../../index.php';
+        </script>";
     }
 
 }

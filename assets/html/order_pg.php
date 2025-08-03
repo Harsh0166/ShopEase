@@ -305,7 +305,7 @@ if(!isset($_SESSION['username'])){
             $city = $row['city'];
             $state = $row['state'];
             $zipcode = $row['zip_code'];
-            $date_time = $row['time'];
+            $date_time = $row['date_time'];
         }
         $total_product = count($product_name_array);
 

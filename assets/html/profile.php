@@ -156,9 +156,6 @@ if(!isset($_SESSION['username'])){
  <!-- Desktop Navbar -->
   <div class="pc-navbar">
     <div class="logo"><i class="fas fa-store"></i> ShopEase</div>
-    <div class="search-bar">
-      <input type="text" placeholder="Search products...">
-    </div>
     <nav>
       <a href="homepage.php"><i class="fas fa-home"></i> Home</a>
       <a href="cart.php"><i class="fas fa-cart-shopping"></i> Cart</a>
@@ -171,9 +168,6 @@ if(!isset($_SESSION['username'])){
     <div class="mobile-top">
       <div class="menu-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
       <div class="logo"><i class="fas fa-store"></i> ShopEase</div>
-    </div>
-    <div class="mobile-search">
-      <input type="text" placeholder="Search products...">
     </div>
   </div>
 
