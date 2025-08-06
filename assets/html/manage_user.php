@@ -1,5 +1,30 @@
 <?php
 include_once("connection.php");
+
+if(isset($_GET['user_id']) && isset($_GET['status'])){
+  $user_id = $_GET['user_id'];
+  $status = $_GET['status'];
+
+  if($status == 0){
+    $update_user_unblock_sql = "UPDATE `user_registration` SET `status` ='1' WHERE `S.no.` = '$user_id'";
+  $update_user_unblock_result = mysqli_query($conn,$update_user_unblock_sql);
+  }
+  else{
+    $update_user_block_sql = "UPDATE `user_registration` SET `status` ='0' WHERE `S.no.` = '$user_id'";
+    $update_user_block_result = mysqli_query($conn,$update_user_block_sql);
+    
+  }
+ 
+  if($update_user_block_result){
+    echo "
+    <script> alert('User Is Blocked')
+    window.location.href = 'manage_user.php' </script>";
+  }else{
+        echo "
+    <script> alert('User Is Unblocked')
+    window.location.href = 'manage_user.php' </script>";
+  }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -138,17 +163,52 @@ include_once("connection.php");
         </tr>
       </thead>
       <tbody>
-    <tr>
-        <td>1</td>
-        <td>Harsh Kumar</td>
-        <td>harsh@example.com</td>
-        <td><span class="status active">Active</span></td> 
-        <td>2-2-2</td>
-        <td>
-          <button class="btn edit-btn">Block</button>
+
+<?php
+  $manage_user_sql = "SELECT * FROM `user_registration`";
+  $manage_user_result = mysqli_query($conn,$manage_user_sql);
+
+  while($row = $manage_user_result->fetch_assoc()){
+    $user_id = $row['S.no.'];
+    $username = $row['username'];
+    $email = $row['email'];
+    $status = $row['status'];
+    $date_time = $row['date_time'];
+    
+    echo '<tr>
+        <td>'.$user_id.'</td>
+        <td>'.$username.'</td>
+        <td>'.$email.'</td>
+        <td><span class="status active">';
+        
+        if($status == 1){
+          echo 'Active';
+        }
+        else{
+          echo 'Blocked';
+        }
+        
+
+        echo '</span></td> 
+        <td>'.$date_time.'</td>
+        <td>';
+          
+          if($status == 1){
+            echo '<a href="manage_user.php?user_id='.$user_id.'&status='.$status.'"><button class="btn edit-btn">Block </button></a>';
+          }
+          else{
+            echo '<a href="manage_user.php?user_id='.$user_id.'&status='.$status.'"><button class="btn edit-btn">Unblock </button></a>';
+          }
+          
+          echo '
           <!-- <button class="btn delete-btn">Delete</button> -->
         </td>
-      </tr>
+      </tr>';
+
+  }
+
+?>
+    
       </tbody>
     </table>
   </div>

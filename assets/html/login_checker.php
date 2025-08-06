@@ -10,7 +10,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $result = mysqli_query($conn,$sql);
     $count = mysqli_num_rows($result);
 
-    if($count == 1){
+    while($row = $result->fetch_assoc()){
+        $status = $row['status'];
+    }
+
+    if($status == 1){
+        if($count == 1){
         $sql_user = "SELECT * FROM `user_registration` WHERE `email` = '$email'";
         $result_user =mysqli_query($conn,$sql_user);
         $row = $result_user->fetch_assoc();
@@ -21,13 +26,23 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
         header("Location: homepage.php");
 
+        }
+        else{
+            echo "<script>
+            alert('User not found');
+            window.location.href = '../../index.php';
+            </script>";
+        }
     }
     else{
-        echo "<script>
-        alert('User not found');
-        window.location.href = '../../index.php';
+        echo "
+        <script> alert('You are blocked. Contact Admin');
+        window.location.href='contact.php';
         </script>";
+        
     }
+
+    
 
 }
 
