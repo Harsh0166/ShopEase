@@ -122,7 +122,9 @@ if(isset($_GET['review_id'])){
     <a href="product_manage.php">Manage Products</a>
     <a href="order_management.php">Manage Orders</a>
     <a href="manage_user.php">Manage Users</a>
-    <a href="review_management.php">Manage Review</a>
+    <a href="review_management.php">Manage Review</a>    
+    <a href="contact_management.php">Manage Contact</a>
+
   </div>
 
   <!-- Main Content -->

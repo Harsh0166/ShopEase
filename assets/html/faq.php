@@ -1,22 +1,3 @@
-<?php
-include_once('connection.php');
-if($_SERVER["REQUEST_METHOD"] == "POST"){
-    $username = $_POST['name'];
-    $email = $_POST['email'];
-    $query = $_POST['query'];
-
-    $contact_sql = "INSERT INTO `contact`(`sno`, `username`, `email`, `query`) VALUES (NULL,'$username','$email','$query')";
-    $contact_result = mysqli_query($conn,$contact_sql);
-
-    if($contact_result){
-          echo "<script>
-            alert('Your Query Submited');
-            window.location.href = 'contact.php';
-            </script>";
-    }
-}
-
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -124,7 +105,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 
     .form-group button {
-      background-color: #111;
+      background-color: #0a74da;
       color: white;
       border: none;
       padding: 0.8rem 1.5rem;
@@ -204,26 +185,21 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
 <div class="container">
-  <section class="contact-form">
-    <h2>Contact Us</h2>
-    <form action="" method="POST">
-      <div class="form-group">
-        <label for="name">Your Name *</label>
-        <input type="text" name="name" id="name" required>
-      </div>
-      <div class="form-group">
-        <label for="email">Your Email *</label>
-        <input type="email" name="email" id="email" required>
-      </div>
-      <div class="form-group">
-        <label for="message">Your Message *</label>
-        <textarea id="message" name="query" required></textarea>
-      </div>
-      <div class="form-group">
-        <button type="submit">Send Message</button>
-      </div>
-    </form>
+  <section class="faq">
+    <h2>Frequently Asked Questions</h2> <hr>
+    <h3>1. How can I track my order?</h3>
+    <p>After placing the order, you'll receive a tracking link in your email or SMS.</p>
+
+    <h3>2. How do I return a product?</h3>
+    <p>You can initiate a return request from your account order page within 7 days of delivery.</p>
+
+    <h3>3. Can I cancel an order?</h3>
+    <p>Yes, you can cancel the order before it is shipped.</p>
+
+    <h3>4. What payment options are available?</h3>
+    <p>We accept UPI, Debit/Credit Cards, Net Banking, and Cash on Delivery.</p>
   </section>
+
 </div>
 
 </body>

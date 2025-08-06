@@ -134,6 +134,8 @@ if(isset($_GET['user_id']) && isset($_GET['status'])){
     <a href="order_management.php">Manage Orders</a>
     <a href="manage_user.php">Manage Users</a>
     <a href="review_management.php">Manage Review</a>
+    <a href="contact_management.php">Manage Contact</a>
+
   </div>
 
   <!-- Main Content -->

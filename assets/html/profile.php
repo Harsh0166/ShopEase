@@ -202,7 +202,11 @@ if(!isset($_SESSION['username'])){
       ?>
       
       <a href="order_history.php"><button class="logout-btn">Order History</button></a>
-      <button class="edit-btn" id="editbtn">Edit Profile</button>
+      <button class="edit-btn" id="editbtn">Edit Profile</button>      
+      <a href="faq.php"><button class="logout-btn">FAQ</button></a>
+      <a href="contact.php"><button class="logout-btn">Contact</button></a>
+
+
       <a href="logout.php"><button class="logout-btn">Logout</button></a>
 
     </div>
