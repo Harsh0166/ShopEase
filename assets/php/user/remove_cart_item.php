@@ -1,5 +1,5 @@
 <?php
-include_once("connection.php");
+include_once('../connection.php');
     if(isset($_GET['sno'])){
         $cart_no = $_GET['sno'];
 

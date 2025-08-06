@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Responsive Sign-Up Page</title>
+  <title>ShopEase</title>
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <style>
     * {
@@ -136,7 +136,7 @@
 <body>
   <div class="container">
     <div class="signup-box">
-      <h2>Create Your Account </h2>
+      <h2>Create Your Account On <b>ShopEase</b></h2>
 
       <!-- <div id="g_id_onload"
            data-client_id="YOUR_GOOGLE_CLIENT_ID"
@@ -172,7 +172,7 @@
         </div>
 
         <button type="submit">Sign Up</button>
-        <p class="login-link">Already have an account? <a href="../../index.php">Login here</a></p>
+        <p class="login-link">Already have an account? <a href="../../../index.php">Login here</a></p>
       </form>
     </div>
   </div>

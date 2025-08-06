@@ -1,6 +1,8 @@
 <?php
-    include_once("connection.php");
-
+include_once('../connection.php');
+if(!isset($_SESSION['admin_name'])){
+  header("Location: admin_login.php");
+}
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         $product_name = $_POST["product_name"];
         $product_price = $_POST["price"];
@@ -35,10 +37,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Manage Products - Admin | ShopEase</title>
+  <title>ShopEase</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <link rel="stylesheet" href="../css/sidebar.css">
-  <link rel="stylesheet" href="../css/admin_header.css">
+  <link rel="stylesheet" href="../../css/sidebar.css">
+  <link rel="stylesheet" href="../../css/admin_header.css">
   <style>
     * {
       box-sizing: border-box;
@@ -52,7 +54,7 @@
     }
 
     h1 {
-      margin-bottom: 1.5rem;
+      /* margin-bottom: 1.5rem; */
       font-size: 2rem;
       color: #111;
     }
@@ -127,7 +129,7 @@
         <i class="fas fa-bars"></i>
       </div>
       <h1>Manage product</h1>
-      <button class="btn">Logout</button>
+      <a href="admin_logout.php"><button class="btn">Logout</button></a>
     </div>
 
   <div class="form-container">

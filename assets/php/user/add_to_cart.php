@@ -1,5 +1,5 @@
 <?php
-include_once("connection.php");
+include_once('../connection.php');
 
     if(isset($_GET['product_id']) && isset($_GET['product_name']) && isset($_GET['price']) && isset($_GET['product_image'])){
         $product_id = $_GET['product_id'];

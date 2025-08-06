@@ -1,8 +1,8 @@
 <?php
-  include_once("connection.php");
+include_once('../connection.php');
 
   if(!isset($_SESSION['username'])){
-  header("Location: ../../index.php");
+  header("Location: ../../../index.php");
 }
     $user_id = $_SESSION["user_id"];
     $show_ordered_sql = "SELECT * FROM `cart` WHERE `user_id` ='$user_id'";
@@ -16,7 +16,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Checkout - ShopEase</title>
+  <title>ShopEase</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
 

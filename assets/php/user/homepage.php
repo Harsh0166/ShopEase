@@ -1,8 +1,8 @@
 <?php
-include_once("connection.php");
+include_once('../connection.php');
 
 if(!isset($_SESSION['username'])){
-  header("Location: ../../index.php");
+  header("Location: ../../../index.php");
 }
 ?>
 
@@ -12,11 +12,11 @@ if(!isset($_SESSION['username'])){
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ShopEase - Home</title>
+  <title>ShopEase</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="stylesheet" href="../css/homepage_sidebar.css">
-  <link rel="stylesheet" href="../css/navbar.css">
-  <link rel="stylesheet" href="../css/slider.css">
+  <link rel="stylesheet" href="../../css/homepage_sidebar.css">
+  <link rel="stylesheet" href="../../css/navbar.css">
+  <link rel="stylesheet" href="../../css/slider.css">
   <style>
     * {
       box-sizing: border-box;
@@ -151,7 +151,7 @@ if(!isset($_SESSION['username'])){
 
         echo '<div class="product-card">
           <a href="product_detail.php?sno='.$sno.'">
-          <img src="../img/'.$electronic_image.'" alt="image not found">
+          <img src="../../img/'.$electronic_image.'" alt="image not found">
           <h4>'.$product_name.'</h4>
           <p> Rs '.$price.'</p>
           <a href="add_to_cart.php?product_id='.$sno.'&product_name='.$product_name.'&price='.$price.'&product_image='.$electronic_image.'" class="add_cart_btn">Add to Cart</a>
@@ -178,7 +178,7 @@ if(!isset($_SESSION['username'])){
 
         echo '<div class="product-card">
           <a href="product_detail.php?sno='.$sno.'">
-          <img src="../img/'.$other_image.'" alt="image not found">
+          <img src="../../img/'.$other_image.'" alt="image not found">
           <h4>'.$product_name.'</h4>
           <p> Rs '.$price.'</p>
           <a href="add_to_cart.php?product_id='.$sno.'&product_name='.$product_name.'&price='.$price.'&product_image='.$other_image.'" class="add_cart_btn">Add to Cart</a>

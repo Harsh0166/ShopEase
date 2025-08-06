@@ -1,10 +1,11 @@
 <?php
-include_once("connection.php");
+include_once('../connection.php');
 if(!isset($_SESSION['username'])){
-  header("Location: ../../index.php");
+  header("Location: ../../../index.php");
 }
   $username = $_SESSION['username'];
-  $email = $_SESSION['email'];
+  
+   $email = $_SESSION['email'];
 
 ?>
 
@@ -13,11 +14,11 @@ if(!isset($_SESSION['username'])){
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Profile - ShopEase</title>
+  <title>ShopEase</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <!-- <link rel="stylesheet" href="../css/style.css"> -->
-  <link rel="stylesheet" href="../css/navbar.css">
-  <link rel="stylesheet" href="../css/homepage_sidebar.css">
+  <link rel="stylesheet" href="../../css/navbar.css">
+  <link rel="stylesheet" href="../../css/homepage_sidebar.css">
   <style>
     * {
       box-sizing: border-box;
@@ -180,11 +181,12 @@ if(!isset($_SESSION['username'])){
   <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
 <?php
+// $address = "Not provided";
     $name = $_SESSION['username'];
     $email = $_SESSION['email'];
       $profile_sql = "SELECT * FROM `user_registration` WHERE `username`= '$name' AND `email` ='$email'";
       $profile_result = mysqli_query($conn,$profile_sql);
-      while($row = $profile_result->fetch_assoc()){
+      if($row = $profile_result->fetch_assoc()){
         $username = $row['username'];
         $email = $row['email'];
         $address = $row['address'];
@@ -194,8 +196,6 @@ if(!isset($_SESSION['username'])){
   <!-- Profile Content -->
   <section class="profile-container">
     <div class="profile-card">
-      <!-- <img src="https://picsum.photos/120?random=1" alt="Profile Picture"> -->
-
       <?php echo '<h2>'.$username.'</h2>';
             echo '<p>Email : '.$email.'</p>
             <p>Address: '.$address.'</p>';
@@ -217,10 +217,10 @@ if(!isset($_SESSION['username'])){
   <div class="popup-box">
     <span class="close-btn" id="closePopup">&times;</span>
     <h3>Edit Profile</h3>
-    <form id="emailForm" action="profile_update.php" method="GET">
-      <input type="text" id="email" name="username" placeholder="username" value="<?php echo $username ?>" >
+    <form id="emailForm" action="profile_update.php" method="POST">
+      <input type="text" id="username" name="username" placeholder="username" value="<?php echo $username ?>" >
       <input type="email" id="email" name="email" placeholder="email" value="<?php echo $email ?>" >
-      <input type="textarea" id="email" name="address" placeholder="address" value="<?php echo $address ?>">
+      <input type="text" id="address" name="address" placeholder="address" value="<?php echo $address ?>">
       <div class="popup-actions">
         <button type="submit">Update</button>
         <button type="button" id="cancelBtn">Cancel</button>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Responsive Login Page</title>
+  <title>ShopEase</title>
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <style>
     * {
@@ -136,9 +136,9 @@
 <body>
   <div class="container">
     <div class="login-box">
-      <h2>Welcome Back TO <b>ShopEase</b></h2>
+      <h2>Welcome Back To <b>ShopEase Admin Panel</b></h2>
 
-      <form action="assets/php/user/login_checker.php" method="POST">
+      <form action="admin_login_checker.php" method="POST">
         <div class="input-group">
           <label>Email</label>
           <input type="email" placeholder="Enter your email" required  name="email"/>
@@ -150,7 +150,7 @@
         </div>
 
         <button type="submit">Login</button>
-        <p class="signup">New here? <a href="assets/php/user/register.php">Create an account</a></p>
+        <p class="signup">New here? <a href="admin_registration.php">Create an account</a></p>
       </form>
     </div>
   </div>

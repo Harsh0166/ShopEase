@@ -1,5 +1,5 @@
 <?php
-include_once("connection.php");
+include_once('../connection.php');
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     $email = $_POST['email'];
@@ -30,7 +30,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         else{
             echo "<script>
             alert('User not found');
-            window.location.href = '../../index.php';
+            window.location.href = '../../../index.php';
             </script>";
         }
     }

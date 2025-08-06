@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Help & Contact</title>
+  <title>ShopEase</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-    <link rel="stylesheet" href="../css/navbar.css">
-  <link rel="stylesheet" href="../css/homepage_sidebar.css">
+    <link rel="stylesheet" href="../../css/navbar.css">
+  <link rel="stylesheet" href="../../css/homepage_sidebar.css">
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -116,6 +116,13 @@
     .form-group button:hover {
       background-color: #005bb5;
     }
+        footer {
+      background-color: #111;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+    }
+
       /* Responsive */
     @media (max-width: 768px) {
       .pc-navbar {
@@ -198,9 +205,23 @@
 
     <h3>4. What payment options are available?</h3>
     <p>We accept UPI, Debit/Credit Cards, Net Banking, and Cash on Delivery.</p>
+
+    <h3>5. What if I receive a damaged or wrong product?</h3>
+<p>Please contact customer support within 48 hours of delivery with photos of the product. We will assist you with a replacement or refund.</p>
+
+    <h3>6. Are there any shipping charges?</h3>
+<p>We offer free shipping on all prepaid orders above ₹499. For orders below that, a nominal fee may apply.</p>
+
+<h3>7. How long does delivery take?</h3>
+<p>Delivery usually takes 3–7 working days, depending on your location and the availability of the product.</p>
+
+<h3>8. Do you ship internationally?</h3>
+<p>Currently, we ship only within India. International shipping will be introduced soon.</p>
   </section>
 
 </div>
-
+  <footer>
+    &copy; 2025 ShopEase. All rights reserved.
+  </footer>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <?php
-include_once("connection.php");
+include_once('../connection.php');
 $name = $_POST["name"];
 $email =$_POST["email"];
 $password =$_POST["password"];
@@ -15,7 +15,7 @@ if($count == 0){
     
     if($result == 1){
        
-        header("Location: ../../index.php");
+        header("Location: ../../../index.php");
     }
     else{
         echo "error in insertion";

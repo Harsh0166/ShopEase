@@ -1,7 +1,7 @@
 <?php
-  include_once("connection.php");
+include_once('../connection.php');
   if(!isset($_SESSION['username'])){
-  header("Location: ../../index.php");
+  header("Location: ../../../index.php");
 }
 
   if(isset($_GET['sno'])){
@@ -60,11 +60,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Product Detail - ShopEase</title>
+  <title>ShopEase</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="stylesheet" href="../css/homepage_sidebar.css">
-  <link rel="stylesheet" href="../css/navbar.css">
-  <link rel="stylesheet" href="../css/slider.css">
+  <link rel="stylesheet" href="../../css/homepage_sidebar.css">
+  <link rel="stylesheet" href="../../css/navbar.css">
+  <link rel="stylesheet" href="../../css/slider.css">
   <style>
     * {
       box-sizing: border-box;
@@ -265,7 +265,7 @@ a{
 
       echo '
     <div class="product-image" id="productImage">
-      <img src="../img/'.$image.'" alt="image not found">
+      <img src="../../img/'.$image.'" alt="image not found">
     </div>
     <div class="product-info" id="productInfo" >
       <h2>'.$product_name .'</h2>
@@ -374,7 +374,7 @@ a{
 
             echo '<div class="product-card">
               <a href="product_detail.php?sno='.$category_product_id.'">
-              <img src="../img/'.$category_product_image.'" alt="image not found">
+              <img src="../../img/'.$category_product_image.'" alt="image not found">
               <h4>'.$category_product_name.'</h4>
               <p> Rs '.$category_product_price.'</p>
               </a>

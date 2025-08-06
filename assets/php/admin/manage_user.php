@@ -1,17 +1,30 @@
 <?php
-include_once("connection.php");
+include_once('../connection.php');
+if(!isset($_SESSION['admin_name'])){
+  header("Location: admin_login.php");
+}
+if(isset($_GET['user_id']) && isset($_GET['status'])){
+  $user_id = $_GET['user_id'];
+  $status = $_GET['status'];
 
-
-if(isset($_GET['review_id'])){
-  $review_id = $_GET['review_id'];
-
-  $delete_review_sql = "DELETE FROM `review` WHERE `sno` = '$review_id'";
-  $delete_review_result =  mysqli_query($conn,$delete_review_sql);
-  
-  if($delete_review_result){
-     echo "
-    <script> alert('Review Deleted')
-    window.location.href = 'review_management.php' </script>";
+  if($status == 0){
+    $update_user_unblock_sql = "UPDATE `user_registration` SET `status` ='1' WHERE `S.no.` = '$user_id'";
+  $update_user_unblock_result = mysqli_query($conn,$update_user_unblock_sql);
+  }
+  else{
+    $update_user_block_sql = "UPDATE `user_registration` SET `status` ='0' WHERE `S.no.` = '$user_id'";
+    $update_user_block_result = mysqli_query($conn,$update_user_block_sql);
+    
+  }
+ 
+  if($update_user_block_result){
+    echo "
+    <script> alert('User Is Blocked')
+    window.location.href = 'manage_user.php' </script>";
+  }else{
+        echo "
+    <script> alert('User Is Unblocked')
+    window.location.href = 'manage_user.php' </script>";
   }
 }
 ?>
@@ -20,10 +33,10 @@ if(isset($_GET['review_id'])){
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Order Management | ShopEase</title>
+  <title>ShopEase</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="stylesheet" href="../css/admin_header.css">
-    <link rel="stylesheet" href="../css/sidebar.css">
+  <link rel="stylesheet" href="../../css/admin_header.css">
+    <link rel="stylesheet" href="../../css/sidebar.css">
 
   <style>
     * {
@@ -40,7 +53,7 @@ if(isset($_GET['review_id'])){
 
     h1 {
       text-align: center;
-      margin-bottom: 2rem;
+      /* margin-bottom: 2rem; */
       font-size: 2rem;
     }
 
@@ -118,11 +131,11 @@ if(isset($_GET['review_id'])){
   <div class="sidebar" id="sidebar">
     <div class="logo"><i class="fas fa-cogs"></i>Admin</div>
     <div class="close-btn" onclick="toggleMenu()"><i class="fas fa-times"></i></div>
-    <a href="admin_pg.php">Dashboard</a>
+  <a href="admin_pg.php">Dashboard</a>
     <a href="product_manage.php">Manage Products</a>
     <a href="order_management.php">Manage Orders</a>
     <a href="manage_user.php">Manage Users</a>
-    <a href="review_management.php">Manage Review</a>    
+    <a href="review_management.php">Manage Review</a>
     <a href="contact_management.php">Manage Contact</a>
 
   </div>
@@ -133,8 +146,8 @@ if(isset($_GET['review_id'])){
       <div class="menu-toggle" onclick="toggleMenu()">
         <i class="fas fa-bars"></i>
       </div>  
-      <h1>Review Management</h1>
-      <button class="btn">Logout</button>
+      <h1>User Management</h1>
+      <a href="admin_logout.php"><button class="btn">Logout</button></a>
     </div>
 
 
@@ -144,44 +157,60 @@ if(isset($_GET['review_id'])){
   <div class="order-table-container">
     <table>
       <thead>
-         <tr>
-      <th>#</th>
-      <th>User</th>
-      <th>Product ID</th>  
-      <th>Product Name</th>
-      <th>Stars</th>
-      <th>Review</th>
-
-      <th>Action</th>
-    </tr>
+        <tr>
+          <th>User ID</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Status</th>
+          <th>Date</th>
+          <th>Actions</th>
+        </tr>
       </thead>
       <tbody>
+
 <?php
-  $manage_review_sql = "SELECT * FROM `review`";
-  $manage_review_result = mysqli_query($conn,$manage_review_sql);
+  $manage_user_sql = "SELECT * FROM `user_registration`";
+  $manage_user_result = mysqli_query($conn,$manage_user_sql);
 
-  while($row = $manage_review_result->fetch_assoc()){
-    $review_id = $row['sno'];
-    $review_username = $row['name'];
-    $review_product_id = $row['product_id'];
-    $review_product_name = $row['product_name'];
-    $review_stars = $row['stars'];
-    $review_description = $row['description'];
-
-
+  while($row = $manage_user_result->fetch_assoc()){
+    $user_id = $row['S.no.'];
+    $username = $row['username'];
+    $email = $row['email'];
+    $status = $row['status'];
+    $date_time = $row['date_time'];
+    
     echo '<tr>
-        <td>'.$review_id.'</td>
-        <td>'.$review_username.'</td>
-        <td>'.$review_product_id.'</td>
-        <td>'.$review_product_name.'</td>
-        <td>'.$review_stars.'</td>
-        <td style="max-width: 300px;">'.$review_description.'</td> 
-       
-        <td>
-          <a href="review_management.php?review_id='.$review_id.'"><button class="btn edit-btn">Delete</button></a>
+        <td>'.$user_id.'</td>
+        <td>'.$username.'</td>
+        <td>'.$email.'</td>
+        <td><span class="status active">';
+        
+        if($status == 1){
+          echo 'Active';
+        }
+        else{
+          echo 'Blocked';
+        }
+        
+
+        echo '</span></td> 
+        <td>'.$date_time.'</td>
+        <td>';
+          
+          if($status == 1){
+            echo '<a href="manage_user.php?user_id='.$user_id.'&status='.$status.'"><button class="btn edit-btn">Block </button></a>';
+          }
+          else{
+            echo '<a href="manage_user.php?user_id='.$user_id.'&status='.$status.'"><button class="btn edit-btn">Unblock </button></a>';
+          }
+          
+          echo '
+          <!-- <button class="btn delete-btn">Delete</button> -->
         </td>
       </tr>';
+
   }
+
 ?>
     
       </tbody>

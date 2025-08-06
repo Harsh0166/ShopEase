@@ -1,6 +1,8 @@
 <?php
-    include_once("connection.php");
-
+include_once('../connection.php');
+if(!isset($_SESSION['admin_name'])){
+  header("Location: admin_login.php");
+}
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         $product_id = $_POST["product_id"];
         $product_name = $_POST["product_name"];
@@ -10,7 +12,7 @@
         $product_description = $_POST["description"];
         $product_image = $_POST["image"];
 
-        $product_add_sql = "UPDATE `product_detail` SET `product_name`='$product_name',`price`='$product_price',`stock_quantity`='$product_stock',`category`='$product_categoory',`description`='$product_description',`image`='[value-7]' WHERE `s. no.` = '$product_id'";
+        $product_add_sql = "UPDATE `product_detail` SET `product_name`='$product_name',`price`='$product_price',`stock_quantity`='$product_stock',`category`='$product_categoory',`description`='$product_description',`image`='$product_image' WHERE `s. no.` = '$product_id'";
         $product_add_result = mysqli_query($conn,$product_add_sql);
        
 
@@ -32,10 +34,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Manage Products - Admin | ShopEase</title>
+  <title>ShopEase</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <link rel="stylesheet" href="../css/sidebar.css">
-  <link rel="stylesheet" href="../css/admin_header.css">
+  <link rel="stylesheet" href="../../css/sidebar.css">
+  <link rel="stylesheet" href="../../css/admin_header.css">
   <style>
     * {
       box-sizing: border-box;
@@ -49,7 +51,7 @@
     }
 
     h1 {
-      margin-bottom: 1.5rem;
+      /* margin-bottom: 1.5rem; */
       font-size: 2rem;
       color: #111;
     }
@@ -122,7 +124,7 @@
         <i class="fas fa-bars"></i>
       </div>
       <h1>Manage product</h1>
-      <button class="btn">Logout</button>
+      <a href="admin_logout.php"><button class="btn">Logout</button></a>
     </div>
 <?php
     if(isset($_GET['product_id'])){

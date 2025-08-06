@@ -1,5 +1,5 @@
 <?php
-include_once("connection.php");
+include_once('../connection.php');
 
 $search = $_GET['query'];
 
@@ -15,10 +15,10 @@ $result = mysqli_query($conn, $sql);
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Search Results - ShopEase</title>
+  <title>ShopEase</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="stylesheet" href="../css/navbar.css">
-  <link rel="stylesheet" href="../css/homepage_sidebar.css">
+  <link rel="stylesheet" href="../../css/navbar.css">
+  <link rel="stylesheet" href="../../css/homepage_sidebar.css">
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -257,7 +257,7 @@ $result = mysqli_query($conn, $sql);
         echo '<a href="product_detail.php?sno='.$product_id.'">
         <div class="product-card">
       <div class="product-image">
-        <img src="../img/'.$product_image.'" alt="Product Image">
+        <img src="../../img/'.$product_image.'" alt="Product Image">
       </div>
       <div class="product-details">
         <div class="product-title">'.$product_name.'</div>';

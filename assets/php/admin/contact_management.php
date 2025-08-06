@@ -1,15 +1,18 @@
 <?php
-include_once("connection.php");
+include_once('../connection.php');
+if(!isset($_SESSION['admin_name'])){
+  header("Location: admin_login.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Order Management | ShopEase</title>
+  <title>ShopEase</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="stylesheet" href="../css/admin_header.css">
-    <link rel="stylesheet" href="../css/sidebar.css">
+  <link rel="stylesheet" href="../../css/admin_header.css">
+    <link rel="stylesheet" href="../../css/sidebar.css">
 
   <style>
     * {
@@ -26,7 +29,7 @@ include_once("connection.php");
 
     h1 {
       text-align: center;
-      margin-bottom: 2rem;
+      /* margin-bottom: 2rem; */
       font-size: 2rem;
     }
 
@@ -119,8 +122,8 @@ include_once("connection.php");
       <div class="menu-toggle" onclick="toggleMenu()">
         <i class="fas fa-bars"></i>
       </div>  
-      <h1>Order Management</h1>
-      <button class="btn">Logout</button>
+      <h1>User Queries</h1>
+      <a href="admin_logout.php"><button class="btn">Logout</button></a>
     </div>
 
 
@@ -131,52 +134,37 @@ include_once("connection.php");
     <table>
       <thead>
         <tr>
-          <th>Order ID</th>
-          <th>Customer</th>
-          <th>Address</th>
-          <th>Product</th>
-          <th>Qty</th>
-          <th>Total</th>
-          <th>Date</th>
-          <th>Status</th>
-          <th>Actions</th>
+          <th>#</th>
+          <th>User ID</th>
+          <th>User</th>
+          <th>email</th>
+          <th style="max-width: 300px;">Query</th>
+          <th>Action</th>
+
+
         </tr>
       </thead>
       <tbody>
         <?php
-             $user_id = $_SESSION["user_id"];
-        $show_ordered_detail_sql = "SELECT * FROM `ordered`";
-        $show_ordered_detail_result = mysqli_query($conn,$show_ordered_detail_sql);
-        while($row = $show_ordered_detail_result->fetch_assoc()){
-            $product_name_array = explode(", ", $row['product_name_string'] );
-            $product_price_array = explode(", ",$row['product_price_string'] );
-            $product_qyantity_array = explode(", ",$row['product_quantity_string'] );
-            $order_id = $row['sno'];
-            $customer_name = $row['full_name'];
-            $address = $row['address'];
-            $city = $row['city'];
-            $state = $row['state'];
-            $zipcode = $row['zip_code'];
-            $date_time = $row['date_time'];
-        
-        $total_product = count($product_name_array);
-
-        $total_price = 0;
-        for($j=0;$j<$total_product;$j++){
-          $total_price += $product_price_array[$j];
-        }
-
+            //  $user_id = $_SESSION["user_id"];
+        $query_sql = "SELECT * FROM `contact`";
+        $query_result = mysqli_query($conn,$query_sql);
+        while($row = $query_result->fetch_assoc()){
+            $query_no = $row['sno'];
+            $username = $row['username'];
+            $email = $row['email'];
+            $query = $row['query'];
+ 
         echo '
         <tr>
-          <td> #'.$order_id.'</td>
-          <td>'.$customer_name.'</td>
-          <td>'.$address.'</td>
-          <td>'.$row['product_name_string'].'</td>
-          <td>'.$row['product_quantity_string'].'</td>
-          <td>Rs '.$total_price.'</td>
-          <td>'.$date_time.'</td>
-          <td><span class="status Pending">Pending</span></td>
-          <td><button class="action-btn">Cancel</button></td>
+          <td> #'.$query_no.'</td>
+          <td>'.$username.'</td>
+          <td>'.$username.'</td>
+          <td>'.$email.'</td>
+          <td>'.$query.'</td>
+          <td><button class="action-btn">Reply</button></td>
+
+      
         </tr>
         
         ';

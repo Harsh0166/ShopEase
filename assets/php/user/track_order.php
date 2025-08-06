@@ -1,7 +1,7 @@
 <?php
-include_once("connection.php");
+include_once('../connection.php');
 if(!isset($_SESSION['username'])){
-  header("Location: ../../index.php");
+  header("Location: ../../../index.php");
 }
 
 ?>
@@ -11,7 +11,7 @@ if(!isset($_SESSION['username'])){
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Order - ShopEase</title>
+  <title>ShopEase</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     * {
@@ -263,7 +263,7 @@ if(!isset($_SESSION['username'])){
     <div class="top-bar">
       <div class="menu-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
       <div class="logo"><i class="fas fa-store"></i> ShopEase</div>
-      <div class="search-bar"><input type="text" placeholder="Search products..."></div>
+      <!-- <div class="search-bar"><input type="text" placeholder="Search products..."></div> -->
       <nav>
         <a href="homepage.php"><i class="fas fa-home"></i> Home</a>
         <a href="cart.php"><i class="fas fa-cart-shopping"></i> Cart</a>
@@ -294,7 +294,9 @@ if(!isset($_SESSION['username'])){
   
       <?php
         $user_id = $_SESSION["user_id"];
-        $show_ordered_detail_sql = "SELECT * FROM `ordered` WHERE `user_id` = $user_id";
+        if(isset($_GET['order_id'])){
+            $order_id = $_GET['order_id'];
+            $show_ordered_detail_sql = "SELECT * FROM `ordered` WHERE `sno` = $order_id";
         $show_ordered_detail_result = mysqli_query($conn,$show_ordered_detail_sql);
         while($row = $show_ordered_detail_result->fetch_assoc()){
             $product_name_array = explode(", ", $row['product_name_string'] );
@@ -321,6 +323,8 @@ if(!isset($_SESSION['username'])){
         <p>Total: <strong>'.$total_price.'</strong></p>
         <p>Shipping Address: <strong>'.$address.', '.$city.', '.$state.', '.$zipcode.'</strong></p>
       </div>';
+        }
+        
    ?>
       <!-- Order Items -->
       <div class="order-items-wrapper">

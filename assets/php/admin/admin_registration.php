@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Responsive Login Page</title>
+  <title>ShopEase</title>
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <style>
     * {
@@ -14,7 +14,7 @@
     body {
       margin: 0;
       padding: 0;
-      background: linear-gradient(135deg, #00c6ff, #0072ff);
+      background: linear-gradient(135deg, #ff758c, #ff7eb3);
       height: 100vh;
       display: flex;
       justify-content: center;
@@ -27,14 +27,14 @@
       max-width: 400px;
     }
 
-    .login-box {
+    .signup-box {
       background: #fff;
       border-radius: 20px;
       padding: 2rem;
       box-shadow: 0 10px 25px rgba(0,0,0,0.1);
     }
 
-    .login-box h2 {
+    .signup-box h2 {
       text-align: center;
       margin-bottom: 1.5rem;
       color: #333;
@@ -61,7 +61,7 @@
 
     button {
       width: 100%;
-      background: #0072ff;
+      background: #ff4b73;
       color: #fff;
       border: none;
       padding: 0.8rem;
@@ -73,7 +73,7 @@
     }
 
     button:hover {
-      background: #005fcc;
+      background: #e84362;
     }
 
     .divider {
@@ -102,18 +102,18 @@
       z-index: 1;
     }
 
-    .signup {
+    .login-link {
       text-align: center;
       font-size: 0.9rem;
       margin-top: 1rem;
     }
 
-    .signup a {
-      color: #0072ff;
+    .login-link a {
+      color: #ff4b73;
       text-decoration: none;
     }
 
-    .signup a:hover {
+    .login-link a:hover {
       text-decoration: underline;
     }
 
@@ -123,7 +123,7 @@
     }
 
     @media (max-width: 480px) {
-      .login-box {
+      .signup-box {
         padding: 1.5rem;
       }
 
@@ -135,22 +135,27 @@
 </head>
 <body>
   <div class="container">
-    <div class="login-box">
-      <h2>Welcome Back TO <b>ShopEase</b></h2>
+    <div class="signup-box">
+      <h2>Create Your Account On <b>ShopEase Admin Panel</b></h2>
 
-      <form action="assets/php/user/login_checker.php" method="POST">
+      <form action="admin_registration_checker.php" method="POST">
+        <div class="input-group">
+          <label>Full Name</label>
+          <input type="text" placeholder="Enter your name" required  name="name"/>
+        </div>
+
         <div class="input-group">
           <label>Email</label>
-          <input type="email" placeholder="Enter your email" required  name="email"/>
+          <input type="email" placeholder="Enter your email" required name="email"/>
         </div>
 
         <div class="input-group">
           <label>Password</label>
-          <input type="password" placeholder="Enter your password" required name="password" />
+          <input type="password" placeholder="Create a password" required name="password"/>
         </div>
 
-        <button type="submit">Login</button>
-        <p class="signup">New here? <a href="assets/php/user/register.php">Create an account</a></p>
+        <button type="submit">Sign Up</button>
+        <p class="login-link">Already have an account? <a href="admin_login.php">Login here</a></p>
       </form>
     </div>
   </div>

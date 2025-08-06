@@ -1,5 +1,20 @@
 <?php
-include_once("connection.php");
+include_once('../connection.php');
+if(!isset($_SESSION['admin_name'])){
+  header("Location: admin_login.php");
+}
+if(isset($_GET['product_id'])){
+  $product_id = $_GET['product_id'];
+
+  $delete_product_sql = "DELETE FROM `product_detail` WHERE `s. no.` = '$product_id'";
+  $delete_product_result =  mysqli_query($conn,$delete_product_sql);
+  
+  if($delete_product_result){
+     echo "
+    <script> alert('Product Deleted')
+    window.location.href = 'admin_pg.php' </script>";
+  }
+}
 ?>
 
 <!DOCTYPE html>
@@ -7,10 +22,10 @@ include_once("connection.php");
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Admin Dashboard - ShopEase</title>
+  <title>ShopEase</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="stylesheet" href="../css/sidebar.css">
-  <link rel="stylesheet" href="../css/admin_header.css">
+  <link rel="stylesheet" href="../../css/sidebar.css">
+  <link rel="stylesheet" href="../../css/admin_header.css">
   <style>
     * {
       box-sizing: border-box;
@@ -131,10 +146,10 @@ include_once("connection.php");
         <i class="fas fa-bars"></i>
       </div>
       <h1>Admin Dashboard</h1>
-      <button class="btn">Logout</button>
+      <a href="admin_logout.php"><button class="btn">Logout</button></a>
     </div>
 <?php
-  $user_id = $_SESSION["user_id"];
+  // $user_id = $_SESSION["user_id"];
   $show_ordered_detail_sql = "SELECT * FROM `ordered`";
   $show_ordered_detail_result = mysqli_query($conn,$show_ordered_detail_sql);
   $total_order = mysqli_num_rows($show_ordered_detail_result); 
@@ -200,7 +215,7 @@ include_once("connection.php");
             <td>'.$stock.'</td>
             <td>
               <a href = "edit_product.php?product_id='.$product_id.'"><button class="btn">Edit</button></a>
-              <button class="btn">Delete</button>
+              <a href = "admin_pg.php?product_id='.$product_id.'"><button class="btn">Delete</button></a>
             </td>
           </tr>';
       }

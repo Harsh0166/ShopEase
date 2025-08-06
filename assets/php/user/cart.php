@@ -1,8 +1,8 @@
 <?php
-include_once("connection.php");
+include_once('../connection.php');
 $show = false;
 if(!isset($_SESSION['username'])){
-  header("Location: ../../index.php");
+  header("Location: ../../../index.php");
 }
 
 ?>
@@ -12,7 +12,7 @@ if(!isset($_SESSION['username'])){
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Shopping Cart - ShopEase</title>
+  <title>ShopEase</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     * {
@@ -281,7 +281,7 @@ if(!isset($_SESSION['username'])){
         if ($count == 0) {
           echo '
             <div class="empty-cart">
-              <img src="../img/empty_cart.png" alt="Empty Cart" />
+              <img src="../../img/empty_cart.png" alt="Empty Cart" />
             </div>
           ';
         }
@@ -293,7 +293,7 @@ if(!isset($_SESSION['username'])){
           $totalprice = $subtotal+$shipping;
           echo '
             <div class="cart-item">
-            <img src="../img/'.$row['product_image'].'" alt="image not found">
+            <img src="../../img/'.$row['product_image'].'" alt="image not found">
             <div class="item-details">
               <h4>'.$row['product_name'].'</h4>
               <p class="price"> Rs'.$row['product_price'].'</p>
