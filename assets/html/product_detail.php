@@ -20,6 +20,7 @@
     $username = $_SESSION['username'];
     $review = $_POST['review'];
     $product_id = $sno;
+    $product_names = $product_name;
     $user_id = $_SESSION['user_id'];
     $star = $_POST['star'];
 
@@ -29,7 +30,7 @@
     $count = mysqli_num_rows($load_only_review_result);
 
     if($count == 0){
-          $review_sql ="INSERT INTO `review`(`sno`, `name`, `stars`, `product_id`, `user_id`, `description`) VALUES (Null,'$username','$star','$product_id','$user_id','$review')";
+          $review_sql ="INSERT INTO `review`(`sno`, `name`, `stars`, `product_id`,`product_name`, `user_id`, `description`) VALUES (Null,'$username','$star','$product_id','$product_name','$user_id','$review')";
           $review_result = mysqli_query($conn,$review_sql);
           if($review_result){
             echo "<script>

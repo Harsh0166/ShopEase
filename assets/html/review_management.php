@@ -1,5 +1,19 @@
 <?php
 include_once("connection.php");
+
+
+if(isset($_GET['review_id'])){
+  $review_id = $_GET['review_id'];
+
+  $delete_review_sql = "DELETE FROM `review` WHERE `sno` = '$review_id'";
+  $delete_review_result =  mysqli_query($conn,$delete_review_sql);
+  
+  if($delete_review_result){
+     echo "
+    <script> alert('Review Deleted')
+    window.location.href = 'review_management.php' </script>";
+  }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -131,26 +145,43 @@ include_once("connection.php");
          <tr>
       <th>#</th>
       <th>User</th>
-      <th>Product</th>
+      <th>Product ID</th>  
+      <th>Product Name</th>
       <th>Stars</th>
       <th>Review</th>
-      <th>Date</th>
+
       <th>Action</th>
     </tr>
       </thead>
       <tbody>
-    <tr>
-        <td>1</td>
-        <td>Harsh Kumar</td>
-        <td>Samsung</td>
-        <td>5</td>
-        <td style="max-width: 300px;">good phone Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas, hic rem commodi quas adipisci beatae ullam eius cum distinctio porro cupiditate perspiciatis accusantium neque? Quasi, obcaecati? Nemo aliquam repellendus culpa.</td> 
-        <td>2-2-2</td>
+<?php
+  $manage_review_sql = "SELECT * FROM `review`";
+  $manage_review_result = mysqli_query($conn,$manage_review_sql);
+
+  while($row = $manage_review_result->fetch_assoc()){
+    $review_id = $row['sno'];
+    $review_username = $row['name'];
+    $review_product_id = $row['product_id'];
+    $review_product_name = $row['product_name'];
+    $review_stars = $row['stars'];
+    $review_description = $row['description'];
+
+
+    echo '<tr>
+        <td>'.$review_id.'</td>
+        <td>'.$review_username.'</td>
+        <td>'.$review_product_id.'</td>
+        <td>'.$review_product_name.'</td>
+        <td>'.$review_stars.'</td>
+        <td style="max-width: 300px;">'.$review_description.'</td> 
+       
         <td>
-          <button class="btn edit-btn">Delete</button>
-          <!-- <button class="btn delete-btn">Delete</button> -->
+          <a href="review_management.php?review_id='.$review_id.'"><button class="btn edit-btn">Delete</button></a>
         </td>
-      </tr>
+      </tr>';
+  }
+?>
+    
       </tbody>
     </table>
   </div>
