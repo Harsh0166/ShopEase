@@ -104,7 +104,7 @@ include_once("connection.php");
   <div class="sidebar" id="sidebar">
     <div class="logo"><i class="fas fa-cogs"></i>Admin</div>
     <div class="close-btn" onclick="toggleMenu()"><i class="fas fa-times"></i></div>
-  <a href="admin_pg.php">Dashboard</a>
+    <a href="admin_pg.php">Dashboard</a>
     <a href="product_manage.php">Manage Products</a>
     <a href="order_management.php">Manage Orders</a>
     <a href="manage_user.php">Manage Users</a>
@@ -117,7 +117,7 @@ include_once("connection.php");
       <div class="menu-toggle" onclick="toggleMenu()">
         <i class="fas fa-bars"></i>
       </div>  
-      <h1>Order Management</h1>
+      <h1>Review Management</h1>
       <button class="btn">Logout</button>
     </div>
 
@@ -128,60 +128,29 @@ include_once("connection.php");
   <div class="order-table-container">
     <table>
       <thead>
-        <tr>
-          <th>Order ID</th>
-          <th>Customer</th>
-          <th>Address</th>
-          <th>Product</th>
-          <th>Qty</th>
-          <th>Total</th>
-          <th>Date</th>
-          <th>Status</th>
-          <th>Actions</th>
-        </tr>
+         <tr>
+      <th>#</th>
+      <th>User</th>
+      <th>Product</th>
+      <th>Stars</th>
+      <th>Review</th>
+      <th>Date</th>
+      <th>Action</th>
+    </tr>
       </thead>
       <tbody>
-        <?php
-             $user_id = $_SESSION["user_id"];
-        $show_ordered_detail_sql = "SELECT * FROM `ordered`";
-        $show_ordered_detail_result = mysqli_query($conn,$show_ordered_detail_sql);
-        while($row = $show_ordered_detail_result->fetch_assoc()){
-            $product_name_array = explode(", ", $row['product_name_string'] );
-            $product_price_array = explode(", ",$row['product_price_string'] );
-            $product_qyantity_array = explode(", ",$row['product_quantity_string'] );
-            $order_id = $row['sno'];
-            $customer_name = $row['full_name'];
-            $address = $row['address'];
-            $city = $row['city'];
-            $state = $row['state'];
-            $zipcode = $row['zip_code'];
-            $date_time = $row['date_time'];
-        
-        $total_product = count($product_name_array);
-
-        $total_price = 0;
-        for($j=0;$j<$total_product;$j++){
-          $total_price += $product_price_array[$j];
-        }
-
-        echo '
-        <tr>
-          <td> #'.$order_id.'</td>
-          <td>'.$customer_name.'</td>
-          <td>'.$address.'</td>
-          <td>'.$row['product_name_string'].'</td>
-          <td>'.$row['product_quantity_string'].'</td>
-          <td>Rs '.$total_price.'</td>
-          <td>'.$date_time.'</td>
-          <td><span class="status Pending">Pending</span></td>
-          <td><button class="action-btn">Cancel</button></td>
-        </tr>
-        
-        ';
-
-    }
-        ?>
-        
+    <tr>
+        <td>1</td>
+        <td>Harsh Kumar</td>
+        <td>Samsung</td>
+        <td>5</td>
+        <td style="max-width: 300px;">good phone Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas, hic rem commodi quas adipisci beatae ullam eius cum distinctio porro cupiditate perspiciatis accusantium neque? Quasi, obcaecati? Nemo aliquam repellendus culpa.</td> 
+        <td>2-2-2</td>
+        <td>
+          <button class="btn edit-btn">Delete</button>
+          <!-- <button class="btn delete-btn">Delete</button> -->
+        </td>
+      </tr>
       </tbody>
     </table>
   </div>

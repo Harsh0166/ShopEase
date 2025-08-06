@@ -117,7 +117,7 @@ include_once("connection.php");
       <div class="menu-toggle" onclick="toggleMenu()">
         <i class="fas fa-bars"></i>
       </div>  
-      <h1>Order Management</h1>
+      <h1>User Management</h1>
       <button class="btn">Logout</button>
     </div>
 
@@ -129,59 +129,26 @@ include_once("connection.php");
     <table>
       <thead>
         <tr>
-          <th>Order ID</th>
-          <th>Customer</th>
-          <th>Address</th>
-          <th>Product</th>
-          <th>Qty</th>
-          <th>Total</th>
-          <th>Date</th>
+          <th>User ID</th>
+          <th>Username</th>
+          <th>Email</th>
           <th>Status</th>
+          <th>Date</th>
           <th>Actions</th>
         </tr>
       </thead>
       <tbody>
-        <?php
-             $user_id = $_SESSION["user_id"];
-        $show_ordered_detail_sql = "SELECT * FROM `ordered`";
-        $show_ordered_detail_result = mysqli_query($conn,$show_ordered_detail_sql);
-        while($row = $show_ordered_detail_result->fetch_assoc()){
-            $product_name_array = explode(", ", $row['product_name_string'] );
-            $product_price_array = explode(", ",$row['product_price_string'] );
-            $product_qyantity_array = explode(", ",$row['product_quantity_string'] );
-            $order_id = $row['sno'];
-            $customer_name = $row['full_name'];
-            $address = $row['address'];
-            $city = $row['city'];
-            $state = $row['state'];
-            $zipcode = $row['zip_code'];
-            $date_time = $row['date_time'];
-        
-        $total_product = count($product_name_array);
-
-        $total_price = 0;
-        for($j=0;$j<$total_product;$j++){
-          $total_price += $product_price_array[$j];
-        }
-
-        echo '
-        <tr>
-          <td> #'.$order_id.'</td>
-          <td>'.$customer_name.'</td>
-          <td>'.$address.'</td>
-          <td>'.$row['product_name_string'].'</td>
-          <td>'.$row['product_quantity_string'].'</td>
-          <td>Rs '.$total_price.'</td>
-          <td>'.$date_time.'</td>
-          <td><span class="status Pending">Pending</span></td>
-          <td><button class="action-btn">Cancel</button></td>
-        </tr>
-        
-        ';
-
-    }
-        ?>
-        
+    <tr>
+        <td>1</td>
+        <td>Harsh Kumar</td>
+        <td>harsh@example.com</td>
+        <td><span class="status active">Active</span></td> 
+        <td>2-2-2</td>
+        <td>
+          <button class="btn edit-btn">Block</button>
+          <!-- <button class="btn delete-btn">Delete</button> -->
+        </td>
+      </tr>
       </tbody>
     </table>
   </div>

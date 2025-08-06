@@ -16,26 +16,39 @@
     $category = $row['category'];
   }
 
-   if(isset($_POST['review'])){
+   if(isset($_POST['review']) && isset($_POST['star'])){
     $username = $_SESSION['username'];
     $review = $_POST['review'];
     $product_id = $sno;
     $user_id = $_SESSION['user_id'];
+    $star = $_POST['star'];
+
     
     $load_only_review_sql = "SELECT * FROM `review` WHERE `product_id` = '$product_id' And `user_id`='$user_id'";
     $load_only_review_result = mysqli_query($conn,$load_only_review_sql);
     $count = mysqli_num_rows($load_only_review_result);
 
     if($count == 0){
-          $review_sql ="INSERT INTO `review`(`sno`, `name`, `stars`, `product_id`, `user_id`, `description`) VALUES (Null,'$username','','$product_id','$user_id','$review')";
+          $review_sql ="INSERT INTO `review`(`sno`, `name`, `stars`, `product_id`, `user_id`, `description`) VALUES (Null,'$username','$star','$product_id','$user_id','$review')";
           $review_result = mysqli_query($conn,$review_sql);
           if($review_result){
-            header("Location: product_detail.php?sno=$sno");
+            echo "<script>
+        alert('Review Added Successfully');
+        window.location.href = 'product_detail.php?sno=".$sno."';
+        </script>";
           }
+
     }
     else{
-      $review_update_sql = "UPDATE `review` SET `stars`='',`description`='$review' WHERE `product_id` = '$product_id' And `user_id`='$user_id'";
-      mysqli_query($conn,$review_update_sql);
+      $review_update_sql = "UPDATE `review` SET `stars`='$star',`description`='$review' WHERE `product_id` = '$product_id' And `user_id`='$user_id'";
+      $review_update_result =  mysqli_query($conn,$review_update_sql);
+
+      if($review_update_result){
+      echo "<script>
+        alert('Review Updated Successfully');
+        window.location.href = 'product_detail.php?sno=".$sno."';
+        </script>";}
+
     }
 
    }
@@ -50,6 +63,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="../css/homepage_sidebar.css">
   <link rel="stylesheet" href="../css/navbar.css">
+  <link rel="stylesheet" href="../css/slider.css">
   <style>
     * {
       box-sizing: border-box;
@@ -62,45 +76,54 @@
       background-color: #f5f5f5;
       overflow-x: hidden;
     }
-
+a{
+  text-decoration: none;
+  color: #111;
+}
 .product-detail {
- display: flex;
-  gap: 20px;
-  align-items: flex-start;
-  padding: 20px;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1.2fr 2fr;
+  gap: 30px;
+  align-items: start;
+  padding: 30px 0 30px 0;
+  max-width: 1200px;
+  margin: 0 auto 5rem auto;
+  height: calc(100vh - 100px); /* make use of full height */
 }
 
-
 .product-image {
-  width: 100%;
-  max-width: 700px;
-  margin: auto;
-  border: 2px solid #ccc;
+  position: sticky;
+  top: 100px; /* leaves space for navbar */
+  width: 500px;
+  height: 600px;
+  background: white;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 10px;
 }
 
 .product-image img {
-  width: 100%;
-  height: auto;
-  border-radius: 10px;
-  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
 }
+
+
 
 .product-info {
-    max-width: 600px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+  height: 100%;
+  overflow-y: auto;
+  padding-right: 10px;
 }
 
+.product-info::-webkit-scrollbar {
+  width: 0;
+}
 .product-info h2 {
   font-size: 2rem;
-  margin-bottom: 0.5rem;
-}
-
-.rating {
-  color: gold;
   margin-bottom: 0.5rem;
 }
 
@@ -133,48 +156,29 @@
       text-align: center;
       padding: 1rem;
     }
+    .rating {
+      display: inline-block;
+      background: #388e3c;
+      color: #fff;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 12px;
+    }
 
     /* Responsive */
     @media (max-width: 768px) {
-       .pc-navbar {
+      .pc-navbar {
         display: none;
       }
 
       .mobile-navbar {
         display: flex;
       }
-      .img_&_detail {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .product-info {
-    text-align: center;
-    margin-top: 1rem;
-  }
-  .product-image {
-    max-width: 100%;
-    padding: 0 10px;
-  }
     }
 
     @media (min-width: 769px) {
-         .mobile-navbar {
+      .mobile-navbar {
         display: none;
-      }
-      .product-detail {
-        flex-direction: row;
-        align-items: flex-start;
-      }
-
-      .product-detail img {
-        margin: 0;
-      }
-
-      .product-info {
-        text-align: left;
-        flex: 1;
-        margin-left: 2rem;
       }
     }
   </style>
@@ -185,7 +189,12 @@
   <div class="pc-navbar">
     <div class="logo"><i class="fas fa-store"></i> ShopEase</div>
     <div class="search-bar">
-      <input type="text" placeholder="Search products...">
+      <form action="search.php" method="GET">
+        <input type="text" name="query" placeholder="Search products..." required>
+        <button type="submit" class="search-btn">
+          <i class="fas fa-search"></i>
+        </button>
+      </form>
     </div>
     <nav>
       <a href="homepage.php"><i class="fas fa-home"></i> Home</a>
@@ -200,8 +209,13 @@
       <div class="menu-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
       <div class="logo"><i class="fas fa-store"></i> ShopEase</div>
     </div>
-    <div class="mobile-search">
-      <input type="text" placeholder="Search products...">
+        <div class="search-bar">
+      <form action="search.php" method="GET">
+        <input type="text" name="query" placeholder="Search products..." required>
+        <button type="submit" class="search-btn">
+          <i class="fas fa-search"></i>
+        </button>
+      </form>
     </div>
   </div>
 
@@ -218,14 +232,53 @@
       $product_id = $sno;
       $load_review_sql = "SELECT * FROM `review` WHERE `product_id`= '$product_id'";
       $load_review_result = mysqli_query($conn,$load_review_sql);
+      $count = mysqli_num_rows($load_review_result);
+      $total_review = 0;
+      $total_rating = 0;
+      $reviews = [];
+      $five_star = 0;
+      $four_star=0;
+      $three_star=0;
+      $two_star=0;
+      $one_star=0;
+      while($row = $load_review_result->fetch_assoc()){ 
+        $reviews[] = $row;
+        $total_rating += (int)$row['stars'];
+        $total_review++;
+        if((int)$row['stars'] == 5){
+          $five_star++;
+        }
+        else if((int)$row['stars'] == 4){
+          $four_star++;
+        }
+        else if((int)$row['stars'] == 3){
+          $three_star++;
+        }
+        else if((int)$row['stars'] == 2){
+          $two_star++;
+        }
+        else if((int)$row['stars'] == 1){
+          $one_star++;
+        }
+      }
 
       echo '
-    <div class="product-image">
+    <div class="product-image" id="productImage">
       <img src="../img/'.$image.'" alt="image not found">
     </div>
-    <div class="product-info">
+    <div class="product-info" id="productInfo" >
       <h2>'.$product_name .'</h2>
-      <div class="rating">★★★★☆ (4.2/5) - 145 Reviews</div>
+      <div class="rating"><b>';
+      
+      if ($total_review > 0) {
+            $avg_rating = $total_rating / $total_review;
+            echo '<div class="rating">'.$avg_rating.' ★</div> ';
+            
+        } else {
+            echo '<div class="rating"> 0 ★</div>';
+        }
+      
+      echo '</b></div> <b>'.$count.' Reviews </b>
       <div class="price">Rs '.$price.'</div>
       <p class="description">'.$description.'</p>
       <a href="add_to_cart.php?product_id='.$sno.'&product_name='.$product_name.'&price='.$price.'&product_image='.$image.'"  class="add-to-cart">Add to Cart</a>
@@ -233,26 +286,40 @@
    
       <h3 style="margin: 2rem 0 1rem;">Customer Ratings</h3>
       <div>
-        ★★★★★ - 70% <br>
-        ★★★★☆ - 20% <br>
-        ★★★☆☆ - 7% <br>
-        ★★☆☆☆ - 2% <br>
-        ★☆☆☆☆ - 1%
+
+        ★★★★★ - '.$five_star.' <br>
+        ★★★★☆ - '.$four_star.'<br>
+        ★★★☆☆ - '.$three_star.'<br>
+        ★★☆☆☆ - '.$two_star.' <br>
+        ★☆☆☆☆ - '.$one_star.'
       </div>
 
       <h3 style="margin: 2rem 0 1rem;">Customer Reviews</h3>
          <button onclick="openReviewForm()" class="add-to-cart" style="margin-top: 1rem;">
         Write a Review
-      </button> <br>
+      </button> <br><br>
       <div style="max-height:250px; overflow-y:auto; padding-right:0.5rem;">
         <div style="margin-bottom:1rem;">';
 
-         while($row = $load_review_result->fetch_assoc()){
-      $review_name = $row['name'];
-      $review_desc = $row['description'];
+
+      $i = 0;
+      while($i < count($reviews)){
+        $review_name = $reviews[$i]['name'];
+        $review_desc = $reviews[$i]['description'];
+        $review_stars = $reviews[$i]['stars'];
+
+      $stars_html = '';
+      for ($i = 1; $i <= 5; $i++) {
+        if ($i <= $review_stars) {
+          $stars_html .= '<i class="fa-solid fa-star" style="color:#388E3C;"></i>';
+        } else {
+          $stars_html .= '<i class="fa-regular fa-star" style="color:#388E3C;"></i>';
+        }
+      }
       echo '
-          <strong>'.$review_name.'</strong><br>★★★★★<br>"'.$review_desc.'"<br>'; };
+          <strong>'.$review_name.'</strong><br>'.$stars_html.'<br>"'.$review_desc.'"<br>'; 
         '</div>';
+    }
     ?>
       
       </div>
@@ -263,6 +330,7 @@
 <div id="reviewForm" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.5); z-index:1000;">
   <div style="background:white; width:90%; max-width:400px; margin:5% auto; padding:2rem; border-radius:8px; position:relative;">
     <h3 style="margin-bottom: 1rem;">Write Your Review</h3>
+      <form action="" method="POST">
 
     <!-- Star Rating -->
     <div id="stars" style="font-size:2rem; color:gold; margin-bottom:1rem; text-align: center;">
@@ -272,54 +340,49 @@
       <i class="fa-regular fa-star" onclick="setRating(4)"></i>
       <i class="fa-regular fa-star" onclick="setRating(5)"></i>
     </div>
-    <form action="" method="POST">
+
+    <input type="hidden" name="star" id="ratingValue" required>
+
     <textarea name="review" required id="reviewText" placeholder="Write your review here..." style="width:100%; height:100px; margin-bottom:1rem; padding:0.5rem; border:1px solid #ccc; border-radius:5px;" ></textarea>
 
     <div style="text-align: right;">
       <button type="button" onclick="closeReviewForm()" style="background-color: #ccc; color: black; padding: 0.5rem 1rem; margin-right: 0.5rem; border: none; border-radius: 5px;">Cancel</button>
       <button type="submit" style="background-color: #111; color: white; padding: 0.5rem 1rem; border: none; border-radius: 5px;">Submit</button>
+    </div>
     </form>
     </div>
   </div>
 </div>
 
 
-<section class="product-detail">
-      <!-- Similar Products Section -->
-<h2>Similar Products</h2>
-<div style="overflow-x: auto; white-space: nowrap; padding: 1rem; margin-bottom: 2rem;">
-<?php
-  $product_id = $sno;
+  <div id="categorySections">
+  <h3>Silmiar Product</h3><br>
+  <div class="product-row">
+ 
+    <?php
+      $product_id = $sno;
 
-  $similar_product_sql = "SELECT * FROM `product_detail` WHERE `category` ='$category'";
-  $similar_product_result = mysqli_query($conn,$similar_product_sql);
+      $similar_product_sql = "SELECT * FROM `product_detail` WHERE `category` ='$category'";
+      $similar_product_result = mysqli_query($conn,$similar_product_sql);
 
-  while($row=$similar_product_result->fetch_assoc()){
-    $category_product_name = $row['product_name'];
-    $category_product_price = $row['price'];
-    $category_product_image = $row['image'];
+      while($row=$similar_product_result->fetch_assoc()){
+        $category_product_name = $row['product_name'];
+        $category_product_price = $row['price'];
+        $category_product_image = $row['image'];
+        $category_product_id = $row['s. no.'];
 
-    echo '
-        <div style="display: inline-block; width: 200px; margin-right: 1rem; background: #fff; border-radius: 8px; box-shadow: 0 0 5px rgba(0,0,0,0.1);">
-        <img src="../img/'.$category_product_image.'" alt="image not found" style="width: 100%; border-top-left-radius:8px; border-top-right-radius:8px;">
-        <div style="padding: 0.5rem;">
-          <h4 style="font-size: 1rem;">'.$category_product_name.'</h4>
-          <p style="color: #e74c3c;">RS'.$category_product_price.'</p>
-        </div>
-      </div>
-    ';
-    // echo '<div class="product-card">
-    //       <a href="product_detail.php?sno='.$sno.'">
-    //       <img src="../img/'.$other_image.'" alt="image not found">
-    //       <h4>'.$product_name.'</h4>
-    //       <p> Rs '.$price.'</p>
-    //       <a href="add_to_cart.php?product_id='.$sno.'&product_name='.$product_name.'&price='.$price.'&product_image='.$other_image.'" class="add_cart_btn">Add to Cart</a>
-    //       </a>
-    //       </div>';
-    //   ;
-  }
+            echo '<div class="product-card">
+              <a href="product_detail.php?sno='.$category_product_id.'">
+              <img src="../img/'.$category_product_image.'" alt="image not found">
+              <h4>'.$category_product_name.'</h4>
+              <p> Rs '.$category_product_price.'</p>
+              </a>
+              </div>';
+          };
 
-?>
+    ?>
+  </div>
+</div>
   <!-- Add more products if you want -->
 </div>
 </section>
@@ -340,34 +403,33 @@
 function openReviewForm() {
   document.getElementById('reviewForm').style.display = 'block';
 }
+  const imageBox = document.getElementById("productImage");
+  const infoBox = document.getElementById("productInfo");
 
-function closeReviewForm() {
-  document.getElementById('reviewForm').style.display = 'none';
-  // selectedRating = 0;
-  // resetStars();
-}
+  imageBox.addEventListener("wheel", function (e) {
+    e.preventDefault();
 
-// function setRating(rating) {
-//   selectedRating = rating;
-//   const stars = document.querySelectorAll('#stars i');
-//   stars.forEach((star, index) => {
-//     if (index < rating) {
-//       star.classList.remove('fa-regular');
-//       star.classList.add('fa-solid');
-//     } else {
-//       star.classList.add('fa-regular');
-//       star.classList.remove('fa-solid');
-//     }
-//   });
-// }
+    infoBox.scrollTop += e.deltaY;
+  });
 
-// function resetStars() {
-//   const stars = document.querySelectorAll('#stars i');
-//   stars.forEach(star => {
-//     star.classList.add('fa-regular');
-//     star.classList.remove('fa-solid');
-//   });
-// }
+  function setRating(rating) {
+    const stars = document.querySelectorAll('#stars i');
+    stars.forEach((star, index) => {
+      star.classList.remove('fa-solid');
+      star.classList.add('fa-regular');
+      if (index < rating) {
+        star.classList.remove('fa-regular');
+        star.classList.add('fa-solid');
+      }
+    });
+
+    document.getElementById('ratingValue').value = rating;
+  }
+
+  function closeReviewForm() {
+    document.getElementById('reviewForm').style.display = 'none';
+  }
+
 
 // function submitReview() {
 //   const reviewText = document.getElementById('reviewText').value;
@@ -380,19 +442,6 @@ function closeReviewForm() {
 //   closeReviewForm();
 // }
 
-//  var loc = window.location.href;
-//     loc=loc.split("?")[1].split("=")[2];
-//     if(loc == 1){
-//         alert("Added successfully");
-//     }
-//     else if(loc==2){
-
-//           alert("Not added");
-//     }
-
-//       function toggleMenu() {
-//       document.getElementById('sidebar').classList.toggle('open');
-//     }
 
   </script>
 </body>

@@ -113,11 +113,11 @@
  <div class="sidebar" id="sidebar">
     <div class="logo"><i class="fas fa-cogs"></i>Admin</div>
     <div class="close-btn" onclick="toggleMenu()"><i class="fas fa-times"></i></div>
-    <a href="admin_pg.php">Dashboard</a>
+  <a href="admin_pg.php">Dashboard</a>
     <a href="product_manage.php">Manage Products</a>
     <a href="order_management.php">Manage Orders</a>
-    <a href="#">Manage Users</a>
-    <a href="#">Sales Analytics</a>
+    <a href="manage_user.php">Manage Users</a>
+    <a href="review_management.php">Manage Review</a>
   </div>
 <div class="dashboard-content">
     <div class="dashboard-header">

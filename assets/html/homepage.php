@@ -16,6 +16,7 @@ if(!isset($_SESSION['username'])){
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="../css/homepage_sidebar.css">
   <link rel="stylesheet" href="../css/navbar.css">
+  <link rel="stylesheet" href="../css/slider.css">
   <style>
     * {
       box-sizing: border-box;
@@ -58,77 +59,7 @@ if(!isset($_SESSION['username'])){
       cursor: pointer;
     }
 
-    .category-section {
-      padding: 1rem;
-    }
-
-    .category-section h3 {
-      margin-bottom: 0.5rem;
-      font-size: 1.3rem;
-    }
-
-    .product-row {
-     display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    gap: 1rem;
-    padding-bottom: 1rem;
-    scroll-behavior: smooth;
-      }
-
-    .product-card {
-      min-width: 160px;
-      background-color: white;
-      padding: 1rem;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      text-align: center;
-        flex-shrink: 0;
-    }
-
-    .product-card img {
-      width: 100%;
-      height: 150px;
-      object-fit: contain;
-      margin-bottom: 0.5rem;
-    }
-
-    .product-card h4 {
-      font-size: 1rem;
-      margin-bottom: 0.25rem;
-    }
-
-    .product-card p {
-      color: #555;
-      margin-bottom: 0.5rem;
-    }
-
-    .product-card button {
-      background-color: #111;
-      color: white;
-      border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    .product-card .add_cart_btn{
-      background-color: #111;
-      color: white;
-      border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 12px;
-    }
     
-    #categorySections{
-      width: 100%;
-      height: 55vh;
-      overflow-y: auto;
-      padding: 1rem;
-      box-sizing: border-box;
-    }
     footer {
       background-color: #111;
       color: white;

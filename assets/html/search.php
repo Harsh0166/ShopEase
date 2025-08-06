@@ -1,7 +1,7 @@
 <?php
 include_once("connection.php");
 
-$search = $_GET['query'] ?? '';
+$search = $_GET['query'];
 
 $sql = "SELECT * FROM product_detail 
         WHERE product_name LIKE '%$search%' 
@@ -9,7 +9,7 @@ $sql = "SELECT * FROM product_detail
         OR description LIKE '%$search%'";
 
 $result = mysqli_query($conn, $sql);
-?>
+?>  
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,12 +44,22 @@ $result = mysqli_query($conn, $sql);
       box-shadow: 0 0 10px rgba(0,0,0,0.05);
     }
 
-    .product-image img {
-      width: 150px;
-      height: 200px;
-      object-fit: cover;
-      border-radius: 5px;
-    }
+    .product-image {
+  width: 160px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 5px;
+  background-color: #f9f9f9; /* optional for clean background */
+}
+
+.product-image img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
 
     .product-details {
       flex: 1;
@@ -66,10 +76,10 @@ $result = mysqli_query($conn, $sql);
       display: inline-block;
       background: #388e3c;
       color: #fff;
-      padding: 2px 6px;
+      padding: 1px 4px;
       border-radius: 4px;
       font-size: 12px;
-      margin-top: 5px;
+      font-weight: 700;
     }
 
     .specs {
@@ -110,9 +120,52 @@ $result = mysqli_query($conn, $sql);
     a{
         text-decoration: none;
     }
+.search-container {
+  position: relative;
+  width: 100%;
+}
 
+.search-container input {
+  width: 100%;
+  padding: 8px 45px 8px 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.search-container .search-btn {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #555;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 4px;
+  line-height: 1;
+}
+
+.search-container .search-btn:hover {
+  color: white;
+  background-color: #111;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+}
+
+     /* Responsive */
     @media (max-width: 768px) {
-      .product-card {
+      .pc-navbar {
+        display: none;
+      }
+
+      .mobile-navbar {
+        display: flex;
+      }
+            .product-card {
         flex-direction: column;
         align-items: center;
         text-align: center;
@@ -126,16 +179,6 @@ $result = mysqli_query($conn, $sql);
       .price-section {
         text-align: center;
         margin-top: 10px;
-      }
-    }
-        /* Responsive */
-    @media (max-width: 768px) {
-      .pc-navbar {
-        display: none;
-      }
-
-      .mobile-navbar {
-        display: flex;
       }
     }
 
@@ -152,10 +195,14 @@ $result = mysqli_query($conn, $sql);
     <div class="logo"><i class="fas fa-store"></i> ShopEase</div>
     <div class="search-bar">
       <form action="search.php" method="GET">
+            <div class="search-container">
+
         <input type="text" name="query" placeholder="Search products..." required>
         <button type="submit" class="search-btn">
           <i class="fas fa-search"></i>
         </button>
+
+            </div>
       </form>
     </div>
 
@@ -175,10 +222,12 @@ $result = mysqli_query($conn, $sql);
     </div>
     <div class="search-bar">
       <form action="search.php" method="GET">
+            <div class="search-container">
         <input type="text" name="query" placeholder="Search products..." required>
         <button type="submit" class="search-btn">
           <i class="fas fa-search"></i>
         </button>
+            </div>
       </form>
     </div>
   </div>
@@ -211,9 +260,28 @@ $result = mysqli_query($conn, $sql);
         <img src="../img/'.$product_image.'" alt="Product Image">
       </div>
       <div class="product-details">
-        <div class="product-title">'.$product_name.'</div>
-        <div class="rating">4.4 ★</div>
-        <ul class="specs">'.$product_description.'
+        <div class="product-title">'.$product_name.'</div>';
+
+      $load_review_sql = "SELECT * FROM `review` WHERE `product_id`= '$product_id'";
+      $load_review_result = mysqli_query($conn,$load_review_sql);
+      $count = mysqli_num_rows($load_review_result);
+      $total_review = 0;
+      $total_rating = 0;
+      while($row = $load_review_result->fetch_assoc()){ 
+        $reviews[] = $row;
+        $total_rating += (int)$row['stars'];
+        $total_review++;
+      }
+        echo '<div class="rating">';
+        if ($total_review > 0) {
+            $avg_rating = $total_rating / $total_review;
+            echo '<div class="rating">'.$avg_rating.' ★</div> ';
+            
+        } else {
+            echo "0 ratings & 0";
+        }
+
+        echo ' </div> <b>'.$count.' Reviews </b> <ul class="specs">'.$product_description.'
 
         </ul>
       </div>
