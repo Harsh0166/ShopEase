@@ -6,7 +6,8 @@ $search = $_GET['query'];
 $sql = "SELECT * FROM product_detail 
         WHERE product_name LIKE '%$search%' 
         OR category LIKE '%$search%' 
-        OR description LIKE '%$search%'";
+        -- OR description LIKE '%$search%'
+        ";
 
 $result = mysqli_query($conn, $sql);
 ?>  
