@@ -12,7 +12,7 @@ if(!isset($_SESSION['admin_name'])){
 
         $product_image = $_FILES["image"]["name"];
         $temp_product_image = $_FILES["image"]["tmp_name"];
-        $folder = "../img/".$product_image;
+        $folder = "../../img/".$product_image;
 
 
         $product_add_sql = "INSERT INTO `product_detail`(`s. no.`, `product_name`, `price`, `stock_quantity`, `category`, `description`, `image`) VALUES ( NULL,'$product_name','$product_price','$product_stock','$product_categoory','$product_description','$product_image')";

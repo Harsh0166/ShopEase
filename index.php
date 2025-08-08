@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Responsive Login Page</title>
+  <title>ShopEase-User</title>
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <style>
     * {
@@ -136,7 +136,7 @@
 <body>
   <div class="container">
     <div class="login-box">
-      <h2>Welcome Back TO <b>ShopEase</b></h2>
+      <h2>Welcome Back To <b>ShopEase</b></h2>
 
       <form action="assets/php/user/login_checker.php" method="POST">
         <div class="input-group">

@@ -181,7 +181,7 @@ if(isset($_GET['product_id'])){
       </div>
       <div class="stat-card">
         <h3>Pending Orders</h3>
-        <p>35</p>
+        <p>0</p>
       </div>
     </div>
 
